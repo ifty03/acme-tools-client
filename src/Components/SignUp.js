@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { useSendEmailVerification } from "react-firebase-hooks/auth";
 import Loading from "./Loading/Loading";
 import auth from "../firebase.init";
+import useToken from "../Hooks/useToken";
 
 const SignUp = () => {
   const [createUserWithEmailAndPassword, eUser, loading, error] =
@@ -22,7 +23,7 @@ const SignUp = () => {
   let location = useLocation();
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
   const [sendEmailVerification, sending] = useSendEmailVerification(auth);
-
+  const [token] = useToken(eUser || gUser);
   let from = location.state?.from?.pathname || "/";
   /* protacted page */
 

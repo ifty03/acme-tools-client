@@ -1,7 +1,12 @@
+import { signOut } from "firebase/auth";
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import auth from "../firebase.init";
 
 const Navbar = () => {
+  const [user] = useAuthState(auth);
   return (
     <div className="navbar bg-base-200 flex justify-between  md:px-10 px-5 ">
       {/* navbar item */}
@@ -77,9 +82,21 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="flex-none">
-        <Link to="/signUp" className="font-semibold">
-          SignUp
-        </Link>
+        {user ? (
+          <button
+            onClick={async () => {
+              await signOut(auth);
+              toast.success("Log Out successfully");
+            }}
+            className="btn btn-ghost"
+          >
+            Sign Out
+          </button>
+        ) : (
+          <Link to="/login" className="font-semibold">
+            Login
+          </Link>
+        )}
         <div className="dropdown dropdown-end">
           <label tabIndex="0" className="btn btn-ghost btn-circle">
             <div className="indicator">
