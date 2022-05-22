@@ -7,6 +7,11 @@ import Home from "./Pages/Home/Home";
 import { Toaster } from "react-hot-toast";
 import Payment from "./Pages/Payment/Payment";
 import RequireAuth from "./Components/RequireAuth";
+import Footer from "./Components/Footer";
+import Dashboard from "./Pages/Dashboard/Dashboard";
+import MyProfile from "./Pages/Dashboard/MyProfile";
+import MyOrders from "./Pages/Dashboard/MyOrders";
+import AddReview from "./Pages/Dashboard/AddReview";
 
 function App() {
   return (
@@ -23,10 +28,24 @@ function App() {
           }
         ></Route>
         <Route path="/home" element={<Home />}></Route>
+        <Route
+          path="/dashboard"
+          element={
+            <RequireAuth>
+              <Dashboard />
+            </RequireAuth>
+          }
+        >
+          <Route index element={<MyProfile />}></Route>
+          <Route path="myProfile" element={<MyProfile />}></Route>
+          <Route path="myOrders" element={<MyOrders />}></Route>
+          <Route path="addReview" element={<AddReview />}></Route>
+        </Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signUp" element={<SignUp />}></Route>
       </Routes>
       <Toaster />
+      <Footer />
     </div>
   );
 }

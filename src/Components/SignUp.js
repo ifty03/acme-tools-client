@@ -23,10 +23,11 @@ const SignUp = () => {
   let location = useLocation();
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
   const [sendEmailVerification, sending] = useSendEmailVerification(auth);
+  const [name, setName] = useState("");
   const [token] = useToken(eUser || gUser);
   const [displayError, setDisplayError] = useState("");
   let from = location.state?.from?.pathname || "/";
-  /* protacted page */
+  /* proctacted page */
 
   useEffect(() => {
     if (user) {
@@ -42,6 +43,7 @@ const SignUp = () => {
   const handelSignUp = async (e) => {
     e.preventDefault();
     const name = e.target.name.value;
+    setName(name);
     const email = e.target.email.value;
     const password = e.target.password.value;
     if (password.length >= 6) {
@@ -56,7 +58,6 @@ const SignUp = () => {
       toast.error("password must be contain 6 charecter");
     }
   };
-
   /* googleLogin */
   const handelGoogleLogin = async (e) => {
     e.preventDefault();
