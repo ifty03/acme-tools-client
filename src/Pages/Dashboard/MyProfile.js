@@ -18,7 +18,7 @@ const MyProfile = () => {
       <div class="divider"></div>
 
       {/* profile image and information */}
-      <div className="grid grid-cols-4">
+      <div className="grid md:grid-cols-4 grid-cols-1">
         <div className="col-span-1 pb-7">
           <div className="w-40 h-40 mx-auto overflow-hidden rounded-full">
             <img className="" src={user?.photoURL} alt="user profile" />
