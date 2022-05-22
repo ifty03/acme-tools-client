@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import {
   useAuthState,
@@ -17,7 +17,7 @@ const Login = () => {
     useSignInWithEmailAndPassword(auth);
   const [sendPasswordResetEmail, resetSending] =
     useSendPasswordResetEmail(auth);
-
+  const [displayError, setDisplayError] = useState("");
   const [email, setEmail] = useState("");
   const [user] = useAuthState(auth);
   let navigate = useNavigate();
@@ -41,7 +41,13 @@ const Login = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     await signInWithEmailAndPassword(email, password);
-    toast.success("Login successfully done");
+    if (eUser || gUser) {
+      setDisplayError("");
+      toast.success("Login successfully done");
+    }
+    if (eError || gError) {
+      toast.error(eError ? eError?.message : gError?.message);
+    }
     e.target.reset();
   };
 
@@ -83,6 +89,9 @@ const Login = () => {
                 name="password"
                 className="input input-bordered"
               />
+              <small className="text-red-500 text-left">
+                {eError?.message}
+              </small>
               <label
                 onClick={async () => {
                   if (email) {
@@ -94,13 +103,12 @@ const Login = () => {
                 }}
                 className="label"
               >
-                <p className="label-text-alt link link-hover">
+                <p className="label-text-alt link link-hover text-left">
                   Forgot password?
                 </p>
               </label>
             </div>
             <div className="form-control mt-6">
-              <small className="text-red-500">{eError?.message}</small>
               <input className="btn btn-primary" type="submit" value="Login" />
               <div className="flex justify-center items-center mt-2">
                 <span>New to Doctors Portal?</span>

@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../firebase.init";
 
 const useToken = (user) => {
   const [token, setToken] = useState("");
+  const [currentUser] = useAuthState(auth);
   const email = user?.user?.email;
   const name = user?.user.displayName;
-  console.log(user);
-  console.log(name);
+  console.log(currentUser?.displayName);
+  console.log(currentUser?.email);
+
   useEffect(() => {
     if (email) {
-      console.log(user);
       fetch(`http://localhost:5000/user/${email}`, {
         method: "POST",
         headers: { "content-type": "application/json" },

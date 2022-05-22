@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Tool = () => {
+  const navigate = useNavigate();
   return (
     <div className="card max-w-96 bg-neutral shadow-xl">
       <figure>
@@ -19,7 +21,10 @@ const Tool = () => {
           <div className="badge badge-outline">Fashion</div>
           <div className="badge badge-outline">Products</div>
         </div>
-        <button className="btn btn-primary w-fit ml-auto mt-5">
+        <button
+          onClick={() => navigate(`/payment/id`)}
+          className="btn btn-primary w-fit ml-auto mt-5"
+        >
           Order Now
         </button>
       </div>

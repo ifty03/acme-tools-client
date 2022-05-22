@@ -24,6 +24,7 @@ const SignUp = () => {
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
   const [sendEmailVerification, sending] = useSendEmailVerification(auth);
   const [token] = useToken(eUser || gUser);
+  const [displayError, setDisplayError] = useState("");
   let from = location.state?.from?.pathname || "/";
   /* protacted page */
 
@@ -43,16 +44,18 @@ const SignUp = () => {
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    await createUserWithEmailAndPassword(email, password);
-    await updateProfile({ displayName: name });
-    await sendEmailVerification();
-    toast.success("user created successfully !");
-    e.target.reset();
+    if (password.length >= 6) {
+      setDisplayError("");
+      await createUserWithEmailAndPassword(email, password);
+      await updateProfile({ displayName: name });
+      await sendEmailVerification();
+      toast.success("user created successfully !");
+      e.target.reset();
+    } else {
+      setDisplayError("password must be contain 6 charecter");
+      toast.error("password must be contain 6 charecter");
+    }
   };
-
-  if (eUser) {
-    console.log(" ", eUser);
-  }
 
   /* googleLogin */
   const handelGoogleLogin = async (e) => {
@@ -103,6 +106,9 @@ const SignUp = () => {
                 required
                 className="input input-bordered"
               />
+              <small className="text-error text-left">
+                {displayError ? displayError : ""}
+              </small>
             </div>
             <div className="form-control mt-6">
               <small className="text-red-500">{eUser?.message}</small>
