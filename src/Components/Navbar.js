@@ -8,7 +8,7 @@ import auth from "../firebase.init";
 
 const Navbar = () => {
   const [user] = useAuthState(auth);
-  console.log(user && user?.displayName);
+  console.log(user);
   const { pathname } = useLocation();
   return (
     <div className="navbar bg-base-200 flex justify-between py-3  md:px-10 px-5 ">
@@ -96,7 +96,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img src="https://api.lorem.space/image/face?hash=33791" />
+                <img src={user?.photoURL} alt="user avtar" />
               </div>
             </label>
             {pathname.includes("dashboard") ? (

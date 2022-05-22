@@ -1,5 +1,7 @@
 import React from "react";
 import { CgProfile } from "react-icons/cg";
+import { MdOutlineBorderColor } from "react-icons/md";
+import { MdReviews } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
@@ -19,10 +21,14 @@ const Dashboard = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/dashboard/myOrders">My Orders</NavLink>
+            <NavLink to="/dashboard/myOrders">
+              <MdOutlineBorderColor /> My Orders
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/dashboard/addReview">Add A Review</NavLink>
+            <NavLink to="/dashboard/addReview">
+              <MdReviews /> Add A Review
+            </NavLink>
           </li>
         </ul>
       </div>

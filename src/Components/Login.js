@@ -10,6 +10,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Loading from "./Loading/Loading";
 import auth from "../firebase.init";
+import useToken from "../Hooks/useToken";
 
 const Login = () => {
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
@@ -22,6 +23,7 @@ const Login = () => {
   const [user] = useAuthState(auth);
   let navigate = useNavigate();
   let location = useLocation();
+  const [token] = useToken(eUser || gUser);
   let from = location.state?.from?.pathname || "/home";
 
   useEffect(() => {

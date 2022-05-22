@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { FcManager } from "react-icons/fc";
 import {
   useAuthState,
   useCreateUserWithEmailAndPassword,
@@ -23,6 +24,7 @@ const SignUp = () => {
   let location = useLocation();
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
   const [sendEmailVerification, sending] = useSendEmailVerification(auth);
+  const [image, setImage] = useState("");
   const [name, setName] = useState("");
   const [token] = useToken(eUser || gUser);
   const [displayError, setDisplayError] = useState("");
@@ -46,17 +48,29 @@ const SignUp = () => {
     setName(name);
     const email = e.target.email.value;
     const password = e.target.password.value;
-    if (password.length >= 6) {
-      setDisplayError("");
-      await createUserWithEmailAndPassword(email, password);
-      await updateProfile({ displayName: name });
-      await sendEmailVerification();
-      toast.success("user created successfully !");
-      e.target.reset();
-    } else {
-      setDisplayError("password must be contain 6 charecter");
-      toast.error("password must be contain 6 charecter");
-    }
+    const formData = new FormData();
+    formData.append("image", image);
+    fetch(
+      `https://api.imgbb.com/1/upload?key=6ae4be522324a7f35282e6aa517d4990`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    )
+      .then((res) => res.json())
+      .then(async ({ data }) => {
+        if (password.length >= 6) {
+          setDisplayError("");
+          await createUserWithEmailAndPassword(email, password);
+          await updateProfile({ displayName: name, photoURL: data?.url });
+          await sendEmailVerification();
+          toast.success("user created successfully !");
+          e.target.reset();
+        } else {
+          setDisplayError("password must be contain 6 charecter");
+          toast.error("password must be contain 6 charecter");
+        }
+      });
   };
   /* googleLogin */
   const handelGoogleLogin = async (e) => {
@@ -85,6 +99,26 @@ const SignUp = () => {
               />
             </div>
             <div className="form-control">
+              {/* image */}
+              <label className="label">
+                <span className="label-text">Image</span>
+              </label>
+              <div className="flex items-center input input-bordered space-x-6">
+                <div class="shrink-0">
+                  <FcManager className="text-3xl" />
+                </div>
+
+                <label class="block">
+                  <span class="sr-only cursor-pointer">Choose File</span>
+                  <input
+                    onChange={(e) => setImage(e.target.files[0])}
+                    type="file"
+                    required
+                    class="block  w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-neutral file:text-blue-700 hover:file:bg-base-500 cursor-pointer"
+                  />
+                </label>
+              </div>
+
               <label className="label">
                 <span className="label-text">Email</span>
               </label>
