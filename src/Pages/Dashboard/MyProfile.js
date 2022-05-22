@@ -1,12 +1,25 @@
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { MdOutlineBorderColor } from "react-icons/md";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+import Loading from "../../Components/Loading/Loading";
 import SocialIcons from "../../Components/SocialIcons";
 import auth from "../../firebase.init";
 
 const MyProfile = () => {
   const [user] = useAuthState(auth);
+  const { data, isLoading } = useQuery("user", () =>
+    fetch(`http://localhost:5000/user?email=${user?.email}`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("access-token")}`,
+      },
+    }).then((res) => res.json())
+  );
+  if (isLoading) {
+    return <Loading />;
+  }
+  console.log(data);
   return (
     <div className="bg-neutral w-11/12 mx-auto mt-8 rounded-lg">
       <div className="flex justify-between items-center pt-5 px-5 ">
