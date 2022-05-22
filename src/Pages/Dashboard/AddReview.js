@@ -96,7 +96,8 @@ const AddReview = () => {
             <textarea
               rows="3"
               name="review"
-              placeholder="Message..."
+              required
+              placeholder="Type Your review..."
               className="p-4 rounded-md resize-none text-gray-400 bg-base-100"
             ></textarea>
             <button

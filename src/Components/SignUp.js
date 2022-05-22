@@ -67,6 +67,16 @@ const SignUp = () => {
           await createUserWithEmailAndPassword(email, password);
           await updateProfile({ displayName: name, photoURL: data?.url });
           await sendEmailVerification();
+
+          /* user data update in database */
+          const user = { name, img: data.url };
+
+          fetch(`http://localhost:5000/user/${email}`, {
+            method: "PUT",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(user),
+          });
+
           toast.success("user created successfully !");
           e.target.reset();
         } else {
@@ -107,17 +117,17 @@ const SignUp = () => {
                 <span className="label-text">Image</span>
               </label>
               <div className="flex items-center input input-bordered space-x-6">
-                <div class="shrink-0">
+                <div className="shrink-0">
                   <FcManager className="text-3xl" />
                 </div>
 
-                <label class="block">
-                  <span class="sr-only cursor-pointer">Choose File</span>
+                <label className="block">
+                  <span className="sr-only cursor-pointer">Choose File</span>
                   <input
                     onChange={(e) => setImage(e.target.files[0])}
                     type="file"
                     required
-                    class="block  w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-neutral file:text-blue-700 hover:file:bg-base-500 cursor-pointer"
+                    className="block  w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-neutral file:text-blue-700 hover:file:bg-base-500 cursor-pointer"
                   />
                 </label>
               </div>

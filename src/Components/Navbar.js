@@ -6,11 +6,15 @@ import { Link, useLocation } from "react-router-dom";
 import { CgMenuGridO } from "react-icons/cg";
 import { FcManager } from "react-icons/fc";
 import auth from "../firebase.init";
+import Loading from "./Loading/Loading";
 
 const Navbar = () => {
-  const [user] = useAuthState(auth);
-  console.log(user);
+  const [user, loading] = useAuthState(auth);
   const { pathname } = useLocation();
+  if (loading) {
+    return <Loading />;
+  }
+  console.log(user);
   return (
     <div className="navbar bg-base-200 flex justify-between py-3  md:px-10 px-5 ">
       {/* navbar item */}
@@ -81,6 +85,7 @@ const Navbar = () => {
           <button
             onClick={async () => {
               await signOut(auth);
+              localStorage.removeItem("access-token");
               toast.success("Log Out successfully");
             }}
             className="btn btn-ghost"
@@ -132,6 +137,7 @@ const Navbar = () => {
               <button
                 onClick={async () => {
                   await signOut(auth);
+                  localStorage.removeItem("access-token");
                   toast.success("signOut successfully");
                 }}
                 className=""
