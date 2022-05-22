@@ -8,7 +8,7 @@ import auth from "../firebase.init";
 const Navbar = () => {
   const [user] = useAuthState(auth);
   return (
-    <div className="navbar bg-base-200 flex justify-between  md:px-10 px-5 ">
+    <div className="navbar bg-base-200 flex justify-between py-3  md:px-10 px-5 ">
       {/* navbar item */}
       <div className="">
         <div className="dropdown">

@@ -62,8 +62,8 @@ const SignUp = () => {
 
   return (
     <div>
-      <div className="hero px-5 min-h-screen bg-base-100">
-        <div className="card flex-shrink-0 w-full max-w-[455px] shadow-2xl bg-neutral">
+      <div className="hero px-5 min-h-screen bg-neutral">
+        <div className="card flex-shrink-0 w-full max-w-[455px] shadow-2xl  bg-base-100">
           <form onSubmit={handelSignUp} className="card-body">
             <h3 className="text-[25px] font-semibold text-center mb-2">
               Sign Up
