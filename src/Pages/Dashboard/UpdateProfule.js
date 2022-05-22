@@ -1,18 +1,18 @@
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { MdOutlineBorderColor } from "react-icons/md";
+import { BsSkipBackwardCircleFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import SocialIcons from "../../Components/SocialIcons";
 import auth from "../../firebase.init";
 
-const MyProfile = () => {
+const UpdateProfule = () => {
   const [user] = useAuthState(auth);
   return (
     <div className="bg-neutral w-11/12 mx-auto mt-8 rounded-lg">
       <div className="flex justify-between items-center pt-5 px-5 ">
-        <h1 className="text-3xl font-semibold">My Profile</h1>
-        <Link to="/dashboard/updateProfile" className=" btn btn-primary btn-sm">
-          <MdOutlineBorderColor className="mr-2" /> Edit
+        <h1 className="text-3xl font-semibold">Update Profile</h1>
+        <Link to="/dashboard/myProfile" className=" btn btn-primary btn-sm">
+          <BsSkipBackwardCircleFill className="mr-2" /> Back
         </Link>
       </div>
       <div class="divider"></div>
@@ -24,10 +24,10 @@ const MyProfile = () => {
             <img className="" src={user?.photoURL} alt="user profile" />
           </div>
           <Link
-            to="/dashboard/updateProfile"
+            to="/dashboard/myProfile"
             className="btn btn-primary btn-sm my-6"
           >
-            <MdOutlineBorderColor className="mr-2" /> Edit Profile
+            <BsSkipBackwardCircleFill className="mr-2" /> Back Profile
           </Link>
         </div>
         <div className="col-span-3 text-left pl-7">
@@ -46,4 +46,4 @@ const MyProfile = () => {
   );
 };
 
-export default MyProfile;
+export default UpdateProfule;
