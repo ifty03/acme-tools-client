@@ -28,7 +28,7 @@ const Review = () => {
           <span className="text-xl font-bold">4.5</span>
         </div>
       </div>
-      <div class="divider mt-0"></div>
+      <div className="divider mt-0"></div>
       <div className="p-4 space-y-2 text-md text-left text-gray-300">
         <p>
           Donec eget ultricies diam, eu molestie arcu. Etiam nec lacus eu mauris

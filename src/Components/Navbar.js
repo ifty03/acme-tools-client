@@ -4,6 +4,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast";
 import { Link, useLocation } from "react-router-dom";
 import { CgMenuGridO } from "react-icons/cg";
+import { FcManager } from "react-icons/fc";
 import auth from "../firebase.init";
 
 const Navbar = () => {
@@ -87,7 +88,7 @@ const Navbar = () => {
             Sign Out
           </button>
         ) : (
-          <Link to="/login" className="font-semibold">
+          <Link to="/login" className="font-semibold mr-2">
             Login
           </Link>
         )}
@@ -96,11 +97,18 @@ const Navbar = () => {
           <div className="flex items-center">
             <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img src={user?.photoURL} alt="user avtar" />
+                {user ? (
+                  <img src={user?.photoURL} alt="user avtar" />
+                ) : (
+                  <FcManager className="text-3xl" />
+                )}
               </div>
             </label>
             {pathname.includes("dashboard") ? (
-              <label for="my-drawer-2" class=" ml-2 drawer-button lg:hidden">
+              <label
+                for="my-drawer-2"
+                className=" ml-2 drawer-button lg:hidden"
+              >
                 <CgMenuGridO className="text-2xl" />
               </label>
             ) : (

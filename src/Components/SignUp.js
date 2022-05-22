@@ -26,6 +26,7 @@ const SignUp = () => {
   const [sendEmailVerification, sending] = useSendEmailVerification(auth);
   const [image, setImage] = useState("");
   const [name, setName] = useState("");
+  const [imgLoading, setImgLoading] = useState(false);
   const [token] = useToken(eUser || gUser);
   const [displayError, setDisplayError] = useState("");
   let from = location.state?.from?.pathname || "/";
@@ -38,11 +39,12 @@ const SignUp = () => {
   }, [user, from, navigate]);
 
   /* loading spinner */
-  if (updating || loading || gLoading || sending) {
+  if (updating || loading || gLoading || sending || imgLoading) {
     return <Loading />;
   }
 
   const handelSignUp = async (e) => {
+    setImgLoading(true);
     e.preventDefault();
     const name = e.target.name.value;
     setName(name);
@@ -59,6 +61,7 @@ const SignUp = () => {
     )
       .then((res) => res.json())
       .then(async ({ data }) => {
+        setImgLoading(false);
         if (password.length >= 6) {
           setDisplayError("");
           await createUserWithEmailAndPassword(email, password);
