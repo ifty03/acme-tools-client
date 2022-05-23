@@ -19,7 +19,7 @@ const MyProfile = () => {
   if (isLoading) {
     return <Loading />;
   }
-  console.log(data);
+
   return (
     <div className="bg-neutral w-11/12 mx-auto mt-8 rounded-lg">
       <div className="flex justify-between items-center pt-5 px-5 ">
@@ -33,8 +33,10 @@ const MyProfile = () => {
       {/* profile image and information */}
       <div className="grid md:grid-cols-4 grid-cols-1">
         <div className="col-span-1 pb-7">
-          <div className="w-40 h-40 mx-auto overflow-hidden rounded-full">
-            <img className="" src={user?.photoURL} alt="user profile" />
+          <div className="avatar online">
+            <div className="w-40 h-40 mx-auto overflow-hidden rounded-full ">
+              <img className="" src={user?.photoURL} alt="user profile" />
+            </div>
           </div>
           <Link
             to="/dashboard/updateProfile"
@@ -45,13 +47,32 @@ const MyProfile = () => {
         </div>
         <div className="col-span-3 text-left pl-7">
           <h2 className="text-md font-semibold text-primary">Full Name:</h2>
-          <p className="text-xl font-semibold mb-2">Your name is here</p>
+          <p className="text-xl font-semibold mb-2">{data?.name}</p>
           <h2 className="text-md font-semibold text-primary">Email Address:</h2>
-          <p className="text-xl font-semibold mb-2">
-            ashikulislamifty@gmail.com
-          </p>
+          <p className="text-xl font-semibold mb-2">{data?.email}</p>
           <h2 className="text-md font-semibold text-primary">Role:</h2>
-          <p className="text-xl font-semibold mb-4">Admin</p>
+          <p className="text-xl font-semibold mb-4">
+            {data?.role ? data.role : "User"}
+          </p>
+          {data?.phone && (
+            <>
+              {" "}
+              <h2 className="text-md font-semibold text-primary">
+                Phone Number:
+              </h2>{" "}
+              <p className="text-xl font-semibold mb-2">{data?.phone}</p>
+            </>
+          )}
+          {data?.address && (
+            <>
+              {" "}
+              <h2 className="text-md font-semibold text-primary">
+                Address:
+              </h2>{" "}
+              <p className="text-xl font-semibold mb-2">{data?.address}</p>
+            </>
+          )}
+
           <SocialIcons />
         </div>
       </div>

@@ -2,7 +2,7 @@ import React from "react";
 
 const SocialIcons = () => {
   return (
-    <div className="flex justify-start pt-4 space-x-4 align-center">
+    <div className="flex justify-start pt-4 mb-4 space-x-4 align-center">
       <a
         rel="noopener noreferrer"
         href="#"
