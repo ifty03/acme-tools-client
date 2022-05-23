@@ -144,7 +144,7 @@ const AddProduct = () => {
                 placeholder="Available quantity"
                 className="input mb-3 text-[16px] input-bordered"
               />
-
+              {/* conditonal qiantity */}
               <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
                 <div>
                   <p className="mb-1 text-left">
