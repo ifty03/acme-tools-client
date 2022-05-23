@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import Loading from "../../Components/Loading/Loading";
 import auth from "../../firebase.init";
@@ -20,34 +21,39 @@ const AddReview = () => {
     const name = user?.displayName;
     const img = user?.photoURL;
     const review = { rate, name, description, img, email: user?.email };
-    fetch("http://localhost:5000/reviews", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(review),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setReviewLoading(false);
-        if (data?.insertedId) {
-          Swal.fire({
-            icon: "success",
-            title: "Yeah...",
-            text: "Thanks for your valuable review",
-            footer: '<a href="">Explore more</a>',
-          });
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Something went wrong!",
-            footer: '<a href="">Why do I have this issue?</a>',
-          });
-        }
-      });
+    if (description.length > 50 && description.length < 250) {
+      fetch("http://localhost:5000/reviews", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(review),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setReviewLoading(false);
+          if (data?.insertedId) {
+            Swal.fire({
+              icon: "success",
+              title: "Yeah...",
+              text: "Thanks for your valuable review",
+              footer: '<a href="">Explore more</a>',
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
+              footer: '<a href="">Why do I have this issue?</a>',
+            });
+          }
+        });
+    } else {
+      setReviewLoading(false);
+      toast.error("please say opinion min 50 and max 250 characters");
+    }
   };
   return (
     <div className="min-h-screen">
-      <div className="flex flex-col max-w-xl p-8 shadow-sm rounded-xl lg:p-12 bg-neutral  text-gray-300 mt-10">
+      <div className="flex flex-col max-w-lg mx-auto p-8 shadow-sm rounded-xl lg:p-12 bg-neutral  text-gray-300 mt-10">
         <div className="flex flex-col items-center w-full">
           <h2 className="text-3xl font-semibold text-center">
             Your opinion matters!
@@ -97,7 +103,7 @@ const AddReview = () => {
               rows="3"
               name="review"
               required
-              placeholder="Type Your review..."
+              placeholder="say opinion min 50 and max 250 characters..."
               className="p-4 rounded-md resize-none text-gray-400 bg-base-100"
             ></textarea>
             <button

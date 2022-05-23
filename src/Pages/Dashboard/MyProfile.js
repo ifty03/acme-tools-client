@@ -1,8 +1,9 @@
+import { signOut } from "firebase/auth";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { MdOutlineBorderColor } from "react-icons/md";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Loading from "../../Components/Loading/Loading";
 import SocialIcons from "../../Components/SocialIcons";
 import auth from "../../firebase.init";
@@ -14,7 +15,14 @@ const MyProfile = () => {
       headers: {
         authorization: `Bearer ${localStorage.getItem("access-token")}`,
       },
-    }).then((res) => res.json())
+    }).then((res) => {
+      if (res.status === 401 || res.status === 403) {
+        signOut(auth);
+        Navigate("/");
+        localStorage.removeItem("access-token");
+      }
+      return res.json();
+    })
   );
   if (isLoading) {
     return <Loading />;
