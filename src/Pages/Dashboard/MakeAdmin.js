@@ -10,6 +10,7 @@ import auth from "../../firebase.init";
 const MakeAdmin = () => {
   const [user] = useAuthState(auth);
   const [adminLoading, setAdminLoading] = useState(false);
+  const [adminId, setAdminId] = useState(0);
   const {
     data: users,
     isLoading,
@@ -77,11 +78,11 @@ const MakeAdmin = () => {
       .then((data) => {
         setAdminLoading(false);
         refetch();
-        toast.success(`Make ${name} as admin`);
+        toast.success(`cancel ${name} admin`);
       });
   };
 
-  if (isLoading || adminLoading) {
+  if (isLoading) {
     return <Loading />;
   }
 
@@ -127,15 +128,29 @@ const MakeAdmin = () => {
               <th>
                 {user?.role === "admin" ? (
                   <button
-                    onClick={() => cancelAdmin(user?.email, user?.name)}
-                    class="btn btn-error btn-xs"
+                    onClick={() => {
+                      setAdminId(user?._id);
+                      cancelAdmin(user?.email, user?.name);
+                    }}
+                    className={
+                      adminLoading && user?._id == adminId
+                        ? "btn btn-error btn-xs loading"
+                        : "btn btn-error btn-xs"
+                    }
                   >
                     Cancel Admin
                   </button>
                 ) : (
                   <button
-                    onClick={() => handelAdmin(user?.email, user?.name)}
-                    class="btn btn-success btn-xs"
+                    onClick={() => {
+                      setAdminId(user?._id);
+                      handelAdmin(user?.email, user?.name);
+                    }}
+                    className={
+                      adminLoading && user?._id == adminId
+                        ? "btn btn-success loading btn-xs"
+                        : "btn btn-success btn-xs"
+                    }
                   >
                     Make Admin
                   </button>
