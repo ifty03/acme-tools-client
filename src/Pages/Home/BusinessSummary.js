@@ -24,7 +24,7 @@ const BusinessSummary = () => {
           </div>
           <div className="flex items-center justify-between flex-1 p-3">
             <p className="text-2xl font-semibold">200+</p>
-            <p>Projects</p>
+            <p>Products</p>
           </div>
         </div>
         <div className="flex overflow-hidden rounded-lg bg-base-100 text-gray-300">
@@ -40,7 +40,7 @@ const BusinessSummary = () => {
             </svg>
           </div>
           <div className="flex items-center justify-between flex-1 p-3">
-            <p className="text-2xl font-semibold">7 500+</p>
+            <p className="text-2xl font-semibold">1.3 M+</p>
             <p>Customers</p>
           </div>
         </div>
@@ -57,7 +57,7 @@ const BusinessSummary = () => {
             </svg>
           </div>
           <div className="flex items-center justify-between flex-1 p-3">
-            <p className="text-2xl font-semibold">14</p>
+            <p className="text-2xl font-semibold">46</p>
             <p>Awards</p>
           </div>
         </div>

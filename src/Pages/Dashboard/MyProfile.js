@@ -5,6 +5,7 @@ import { MdOutlineBorderColor } from "react-icons/md";
 import { useQuery } from "react-query";
 import { Link, Navigate } from "react-router-dom";
 import Loading from "../../Components/Loading/Loading";
+import { HiCheckCircle } from "react-icons/hi";
 import SocialIcons from "../../Components/SocialIcons";
 import auth from "../../firebase.init";
 
@@ -55,7 +56,10 @@ const MyProfile = () => {
         </div>
         <div className="col-span-3 text-left pl-7">
           <h2 className="text-md font-semibold text-primary">Full Name:</h2>
-          <p className="text-xl font-semibold mb-2">{data?.name}</p>
+          <p className="text-xl font-semibold mb-2 flex items-center">
+            {data?.name}{" "}
+            {data?.role && <HiCheckCircle className="text-blue-600" />}
+          </p>
           <h2 className="text-md font-semibold text-primary">Email Address:</h2>
           <p className="text-xl font-semibold mb-2">{data?.email}</p>
           <h2 className="text-md font-semibold text-primary">Role:</h2>

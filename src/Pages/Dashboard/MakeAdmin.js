@@ -4,6 +4,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast";
 import { useQuery } from "react-query";
 import { Navigate } from "react-router-dom";
+import { HiCheckCircle } from "react-icons/hi";
 import Loading from "../../Components/Loading/Loading";
 import auth from "../../firebase.init";
 
@@ -113,7 +114,14 @@ const MakeAdmin = () => {
                     </div>
                   </div>
                   <div>
-                    <div class="font-bold">{user?.name}</div>
+                    <div class="font-bold">
+                      <span className="flex items-center">
+                        {user?.name}
+                        {user?.role === "admin" && (
+                          <HiCheckCircle className="text-blue-600" />
+                        )}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </td>

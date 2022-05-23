@@ -1,10 +1,10 @@
 import React from "react";
-import bg from "../../Assets/images/bg.png";
+import bg from "../../Assets/images/bg2.png";
 
 const Banner = () => {
   return (
     <div
-      className="hero lg:min-h-screen"
+      className="hero lg:min-h-screen "
       style={{
         backgroundImage: `url(${bg})`,
 
