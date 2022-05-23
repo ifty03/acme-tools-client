@@ -2,6 +2,10 @@ import React from "react";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineBorderColor } from "react-icons/md";
 import { MdReviews } from "react-icons/md";
+import { BiAddToQueue } from "react-icons/bi";
+import { IoMdRemoveCircle } from "react-icons/io";
+import { MdAddLocationAlt } from "react-icons/md";
+import { MdAdminPanelSettings } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
@@ -28,6 +32,26 @@ const Dashboard = () => {
           <li>
             <NavLink to="/dashboard/addReview">
               <MdReviews /> Add A Review
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/manageProduct">
+              <IoMdRemoveCircle /> Manage Products
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/addProduct">
+              <BiAddToQueue /> Add A Product
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/manageAllOrders">
+              <MdAddLocationAlt /> Manage All Orders
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/makeAdmin">
+              <MdAdminPanelSettings /> Make Admin
             </NavLink>
           </li>
         </ul>

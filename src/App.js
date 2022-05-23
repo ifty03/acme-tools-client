@@ -13,6 +13,9 @@ import MyProfile from "./Pages/Dashboard/MyProfile";
 import MyOrders from "./Pages/Dashboard/MyOrders";
 import AddReview from "./Pages/Dashboard/AddReview";
 import UpdateProfule from "./Pages/Dashboard/UpdateProfule";
+import Blogs from "./Pages/Blogs";
+import Postfolio from "./Pages/Postfolio";
+import MakeAdmin from "./Pages/Dashboard/MakeAdmin";
 
 function App() {
   return (
@@ -20,6 +23,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/blogs" element={<Blogs />}></Route>
+        <Route path="/portfolio" element={<Postfolio />}></Route>
         <Route
           path="/payment/:id"
           element={
@@ -39,6 +44,7 @@ function App() {
         >
           <Route index element={<MyProfile />}></Route>
           <Route path="myProfile" element={<MyProfile />}></Route>
+          <Route path="makeAdmin" element={<MakeAdmin />}></Route>
           <Route path="myOrders" element={<MyOrders />}></Route>
           <Route path="updateProfile" element={<UpdateProfule />}></Route>
           <Route path="addReview" element={<AddReview />}></Route>
