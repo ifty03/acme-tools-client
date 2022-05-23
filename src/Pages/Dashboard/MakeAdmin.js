@@ -1,6 +1,7 @@
 import { signOut } from "firebase/auth";
-import React from "react";
+import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import toast from "react-hot-toast";
 import { useQuery } from "react-query";
 import { Navigate } from "react-router-dom";
 import Loading from "../../Components/Loading/Loading";
@@ -8,7 +9,12 @@ import auth from "../../firebase.init";
 
 const MakeAdmin = () => {
   const [user] = useAuthState(auth);
-  const { data: users, isLoading } = useQuery("users", () =>
+  const [adminLoading, setAdminLoading] = useState(false);
+  const {
+    data: users,
+    isLoading,
+    refetch,
+  } = useQuery("users", () =>
     fetch(`http://localhost:5000/users?email=${user.email}`, {
       method: "GET",
       headers: {
@@ -23,7 +29,59 @@ const MakeAdmin = () => {
       return res.json();
     })
   );
-  if (isLoading) {
+
+  /* make a admin */
+  const handelAdmin = (email, name) => {
+    setAdminLoading(true);
+    fetch(`http://localhost:5000/makeAdmin/${user?.email}`, {
+      method: "PUT",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    })
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          signOut(auth);
+          Navigate("/");
+          localStorage.removeItem("access-token");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setAdminLoading(false);
+        refetch();
+        toast.success(`Make ${name} as admin`);
+      });
+  };
+  /* remove a admin */
+  const cancelAdmin = (email, name) => {
+    setAdminLoading(true);
+    fetch(`http://localhost:5000/cancelAdmin/${user?.email}`, {
+      method: "PUT",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    })
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          signOut(auth);
+          Navigate("/");
+          localStorage.removeItem("access-token");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setAdminLoading(false);
+        refetch();
+        toast.success(`Make ${name} as admin`);
+      });
+  };
+
+  if (isLoading || adminLoading) {
     return <Loading />;
   }
 
@@ -40,7 +98,7 @@ const MakeAdmin = () => {
         </thead>
         <tbody>
           {users?.map((user) => (
-            <tr className="hover">
+            <tr key={user?._id} className="hover">
               <td>
                 <div class="flex items-center space-x-3">
                   <div class="avatar">
@@ -60,10 +118,28 @@ const MakeAdmin = () => {
               </td>
               <td>{user?.email}</td>
               <th>
-                <button class="btn btn-accent btn-xs"> Admin</button>
+                {user?.role === "admin" ? (
+                  <button class="btn btn-accent btn-xs"> Admin</button>
+                ) : (
+                  <button class="btn btn-accent btn-xs"> User</button>
+                )}
               </th>
               <th>
-                <button class="btn btn-success btn-xs">Make Admin</button>
+                {user?.role === "admin" ? (
+                  <button
+                    onClick={() => cancelAdmin(user?.email, user?.name)}
+                    class="btn btn-error btn-xs"
+                  >
+                    Cancel Admin
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handelAdmin(user?.email, user?.name)}
+                    class="btn btn-success btn-xs"
+                  >
+                    Make Admin
+                  </button>
+                )}
               </th>
             </tr>
           ))}
