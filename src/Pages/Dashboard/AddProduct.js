@@ -33,7 +33,6 @@ const AddProduct = () => {
         }
       )
         .then((res) => {
-          console.log(res);
           return res.json();
         })
         .then((result) => {
@@ -45,7 +44,7 @@ const AddProduct = () => {
               minimum,
               maximum,
               available,
-              img: result?.url,
+              img: result?.data?.url,
             };
             fetch("http://localhost:5000/product", {
               method: "POST",
@@ -195,7 +194,7 @@ const AddProduct = () => {
                 name="description"
                 required
                 placeholder="description"
-                class="textarea mb-3 text-[16px] textarea-bordered"
+                className="textarea mb-3 text-[16px] textarea-bordered"
               ></textarea>
 
               <input

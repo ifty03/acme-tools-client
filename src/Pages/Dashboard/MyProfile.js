@@ -37,7 +37,7 @@ const MyProfile = () => {
           <MdOutlineBorderColor className="mr-2" /> Edit
         </Link>
       </div>
-      <div class="divider"></div>
+      <div className="divider"></div>
 
       {/* profile image and information */}
       <div className="grid md:grid-cols-4 grid-cols-1">

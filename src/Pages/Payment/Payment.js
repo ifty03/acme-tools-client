@@ -8,20 +8,20 @@ import auth from "../../firebase.init";
 const Payment = () => {
   const [user] = useAuthState(auth);
   const [quantity, setQuantity] = useState(0);
-  // const { toolId } = useParams();
+  const { toolId } = useParams();
 
-  // const { data: tool, isLoading } = useQuery("tool", () =>
-  //   fetch(`http://localhost:5000/tool/${toolId}`, {
-  //     method: "GET",
-  //     headers: {
-  //       authorization: `Bearer ${localStorage.getItem("access-token")}`,
-  //     },
-  //   }).then((res) => res.json())
-  // );
-  // if (isLoading) {
-  //   return <Loading />;
-  // }
-  // console.log(tool);
+  const { data: tool, isLoading } = useQuery("tool", () =>
+    fetch(`http://localhost:5000/tool/${toolId}`, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("access-token")}`,
+      },
+    }).then((res) => res.json())
+  );
+  if (isLoading) {
+    return <Loading />;
+  }
+  console.log(tool);
   const handelOrder = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -46,89 +46,96 @@ const Payment = () => {
   };
   return (
     <section>
-      <h1 class="sr-only">Checkout</h1>
+      <h1 className="sr-only">Checkout</h1>
 
-      <div class="relative mx-auto max-w-screen-2xl">
-        <div class="grid grid-cols-1 lg:grid-cols-2">
-          <div class="py-12 bg-base-100 md:py-24">
-            <div class=" px-4 mx-auto lg:px-8">
-              <div class="flex items-center">
-                <div class="w-10 h-10 overflow-hidden border-[2px] border-primary rounded-full">
+      <div className="relative mx-auto max-w-screen-2xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          <div className="py-12 bg-base-100 md:py-24">
+            <div className=" px-4 mx-auto lg:px-8">
+              <div className="flex items-center">
+                <div className="w-10 h-10 overflow-hidden border-[2px] border-primary rounded-full">
                   <img src={user?.photoURL} alt="" />
                 </div>
 
-                <h2 class="ml-4 font-medium">{user?.displayName}</h2>
+                <h2 className="ml-4 font-medium">{user?.displayName}</h2>
               </div>
 
-              <div class="mt-8">
-                <p class="text-2xl font-medium tracking-tight text-warning">
-                  $99.99
+              <div className="mt-8">
+                <p className="text-2xl font-medium tracking-tight text-warning">
+                  ${tool?.price}
                 </p>
-                <p class="mt-1 text-sm text-gray-500">For the purchase of</p>
+                <p className="mt-1 text-sm text-gray-500">
+                  For the purchase of
+                </p>
               </div>
 
-              <div class="mt-12">
-                <div class="lg:flex bg-white dark:bg-gray-800 rounded-lg shadow">
-                  <div class="flex-none w-24 md:w-48  relative">
+              <div className="mt-12">
+                <div className="lg:flex bg-white dark:bg-gray-800 rounded-lg shadow">
+                  <div className="flex-none w-24 md:w-48  relative">
                     <img
-                      src="https://media.wickes.co.uk/is/image/wickes/normal/Pliers-Wickes-Heavy-Duty-Pliers-200mm-Pack-of-3~T3274_200395_00?$ratio43$&fit=crop"
+                      src={tool?.img}
                       alt="shopping img"
-                      class="absolute rounded-lg inset-0 w-full h-full object-cover"
+                      className="absolute rounded-lg inset-0 w-full h-full object-cover"
                     />
                   </div>
-                  <form class="flex-auto p-6 text-left">
-                    <div class="flex flex-wrap">
-                      <h1 class="flex-auto text-xl font-semibold mb-4 dark:text-gray-50">
-                        Classic Utility Jacket
+                  <form className="flex-auto p-6 text-left">
+                    <div className="flex flex-wrap">
+                      <h1 className="flex-auto text-xl font-semibold mb-4 dark:text-gray-50">
+                        {tool?.name}
                       </h1>
-                      <div class="text-xl text-warning font-semibold">
-                        $110.00
+                      <div className="text-xl text-warning font-semibold">
+                        ${tool?.price}
                       </div>
                     </div>
-                    <h2 className="mb-1">
-                      <span className="text-lg font-semibold">
-                        Minimum order:
-                      </span>{" "}
-                      <span className="text-warning">200</span>
-                    </h2>
                     <h2 className="mb-1">
                       <span className="text-lg font-semibold">Available:</span>{" "}
                       <span className="text-warning">299</span>
                     </h2>
+                    <h2 className="mb-1">
+                      <span className="text-lg font-semibold">
+                        Maximum order:
+                      </span>{" "}
+                      <span className="text-warning">{tool?.maximum}</span>
+                    </h2>
+                    <h2 className="mb-1">
+                      <span className="text-lg font-semibold">
+                        Minimum order:
+                      </span>{" "}
+                      <span className="text-warning">{tool?.minimum}</span>
+                    </h2>
+
                     <h2 className="mb-3">
                       <span className="text-lg font-semibold">
                         Description:
                       </span>{" "}
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                      Molestiae temporibus soluta dolore aspernatur culpa
-                      deleniti!
+                      {tool?.description}
                     </h2>
-                    <div class="rating">
+                    <div className="rating">
                       <input
                         type="radio"
                         name="rating-2"
-                        class="mask mask-star-2 bg-orange-400"
+                        className="mask mask-star-2 bg-orange-400"
                       />
                       <input
                         type="radio"
                         name="rating-2"
-                        class="mask mask-star-2 bg-orange-400"
+                        className="mask mask-star-2 bg-orange-400"
                       />
                       <input
                         type="radio"
                         name="rating-2"
-                        class="mask mask-star-2 bg-orange-400"
+                        className="mask mask-star-2 bg-orange-400"
                       />
                       <input
                         type="radio"
                         name="rating-2"
-                        class="mask mask-star-2 bg-orange-400"
+                        className="mask mask-star-2 bg-orange-400"
                         checked
                       />
                       <input
                         type="radio"
                         name="rating-2"
-                        class="mask mask-star-2 bg-orange-400"
+                        className="mask mask-star-2 bg-orange-400"
                       />
                     </div>
                   </form>

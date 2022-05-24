@@ -88,8 +88,8 @@ const MakeAdmin = () => {
   }
 
   return (
-    <div class="overflow-x-auto w-11/12 bg-neutral rounded-lg mx-auto">
-      <table class="table mx-auto my-10 w-10/12">
+    <div className="overflow-x-auto w-11/12 bg-neutral rounded-lg mx-auto">
+      <table className="table mx-auto my-10 w-10/12">
         <thead>
           <tr>
             <th>Name</th>
@@ -102,10 +102,10 @@ const MakeAdmin = () => {
           {users?.map((user) => (
             <tr key={user?._id} className="hover">
               <td>
-                <div class="flex items-center space-x-3">
-                  <div class="avatar">
+                <div className="flex items-center space-x-3">
+                  <div className="avatar">
                     <div className="avatar online">
-                      <div class="mask mask-squircle w-12 h-12">
+                      <div className="mask mask-squircle w-12 h-12">
                         <img
                           src={user?.img}
                           alt="Avatar Tailwind CSS Component"
@@ -114,7 +114,7 @@ const MakeAdmin = () => {
                     </div>
                   </div>
                   <div>
-                    <div class="font-bold">
+                    <div className="font-bold">
                       <span className="flex items-center">
                         {user?.name}
                         {user?.role === "admin" && (
@@ -128,9 +128,9 @@ const MakeAdmin = () => {
               <td>{user?.email}</td>
               <th>
                 {user?.role === "admin" ? (
-                  <button class="btn btn-accent btn-xs"> Admin</button>
+                  <button className="btn btn-accent btn-xs"> Admin</button>
                 ) : (
-                  <button class="btn btn-accent btn-xs"> User</button>
+                  <button className="btn btn-accent btn-xs"> User</button>
                 )}
               </th>
               <th>
