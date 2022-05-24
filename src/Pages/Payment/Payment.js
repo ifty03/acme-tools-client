@@ -14,13 +14,21 @@ const Payment = () => {
   const [orderLoading, setOrderLoading] = useState(false);
   const { toolId } = useParams();
 
-  const { data: tool, isLoading } = useQuery("tool", () =>
+  const { data: tool, isLoading } = useQuery(["tool", toolId], () =>
     fetch(`http://localhost:5000/tool/${toolId}`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("access-token")}`,
       },
-    }).then((res) => res.json())
+    }).then((res) => {
+      if (res.status === 401 || res.status === 403) {
+        signOut(auth);
+        localStorage.removeItem("access-token");
+        Navigate("/home");
+        toast.error("please reLogin");
+      }
+      return res.json();
+    })
   );
 
   /* user ordered data store in database */
@@ -28,6 +36,7 @@ const Payment = () => {
   if (isLoading || orderLoading) {
     return <Loading />;
   }
+  console.log(tool);
   const handelOrder = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -50,7 +59,7 @@ const Payment = () => {
       totalPrice,
       productId: tool?._id,
     };
-    if (quantity <= tool.maximum && quantity >= tool.minimum) {
+    if (quantity <= tool?.maximum && quantity >= tool?.minimum) {
       setOrderLoading(true);
       fetch("http://localhost:5000/order", {
         method: "POST",
@@ -76,11 +85,11 @@ const Payment = () => {
           setTprice(0);
         });
     } else {
-      if (quantity > tool.maximum) {
-        toast.error(`please decrease ${quantity - tool.maximum} item`);
+      if (quantity > tool?.maximum) {
+        toast.error(`please decrease ${quantity - tool?.maximum} item`);
       }
-      if (quantity < tool.minimum) {
-        toast.error(`please increase ${tool.minimum - quantity} item`);
+      if (quantity < tool?.minimum) {
+        toast.error(`please increase ${tool?.minimum - quantity} item`);
       }
     }
   };
@@ -256,24 +265,24 @@ const Payment = () => {
                     onChange={(e) => {
                       const q = e.target.value;
                       setQuantity(q);
-                      setTprice(q * tool.price);
+                      setTprice(q * tool?.price);
                     }}
                     required
                     placeholder="How much ?"
                     className={
-                      (quantity > tool.maximum || quantity < tool.minimum) &&
+                      (quantity > tool?.maximum || quantity < tool?.minimum) &&
                       quantity !== 0
                         ? "input mb-3 text-[16px]  input-bordered input-error"
                         : "input mb-3 text-[16px]  input-bordered"
                     }
                   />
                   <small className="text-left text-error block -mt-2">
-                    {quantity > tool.maximum &&
+                    {quantity > tool?.maximum &&
                       quantity !== 0 &&
                       `Please decrease you quantity`}
                   </small>
                   <small className="text-left text-error block -mt-2">
-                    {quantity < tool.minimum &&
+                    {quantity < tool?.minimum &&
                       quantity !== 0 &&
                       `Please increase you quantity`}
                   </small>
