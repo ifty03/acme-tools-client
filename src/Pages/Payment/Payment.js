@@ -1,13 +1,17 @@
+import { signOut } from "firebase/auth";
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import toast from "react-hot-toast";
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import Loading from "../../Components/Loading/Loading";
 import auth from "../../firebase.init";
 
 const Payment = () => {
   const [user] = useAuthState(auth);
   const [quantity, setQuantity] = useState(0);
+  const [tPrice, setTprice] = useState(0);
+  const [orderLoading, setOrderLoading] = useState(false);
   const { toolId } = useParams();
 
   const { data: tool, isLoading } = useQuery("tool", () =>
@@ -18,10 +22,12 @@ const Payment = () => {
       },
     }).then((res) => res.json())
   );
-  if (isLoading) {
+
+  /* user ordered data store in database */
+
+  if (isLoading || orderLoading) {
     return <Loading />;
   }
-  console.log(tool);
   const handelOrder = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -39,10 +45,44 @@ const Payment = () => {
       country,
       phone,
       address,
+      img: tool?.img,
       quantity,
       totalPrice,
+      productId: tool?._id,
     };
-    console.log(order);
+    if (quantity <= tool.maximum && quantity >= tool.minimum) {
+      setOrderLoading(true);
+      fetch("http://localhost:5000/order", {
+        method: "POST",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(order),
+      })
+        .then((res) => {
+          if (res.status === 401 || res.status === 403) {
+            signOut(auth);
+            localStorage.removeItem("access-token");
+            Navigate("/home");
+            setOrderLoading(false);
+          }
+          return res.json();
+        })
+        .then((data) => {
+          setOrderLoading(false);
+          e.target.reset();
+          toast.success("Yeah !! your oder is completed");
+          setTprice(0);
+        });
+    } else {
+      if (quantity > tool.maximum) {
+        toast.error(`please decrease ${quantity - tool.maximum} item`);
+      }
+      if (quantity < tool.minimum) {
+        toast.error(`please increase ${tool.minimum - quantity} item`);
+      }
+    }
   };
   return (
     <section>
@@ -153,15 +193,15 @@ const Payment = () => {
               <h2 className="text-2xl font bold mb-6 text-left text-primary">
                 Confirm Your Order
               </h2>
-              <label className="mb-1 text-left">Name</label>
+              <label className="mb-1 text-left">Product Name</label>
               <input
                 type="text"
                 name="name"
                 disabled
-                value={user?.displayName}
+                value={tool?.name}
                 className="input mb-3 text-[16px] input-bordered"
               />
-              <label className="mb-1 text-left">Email</label>
+              <label className="mb-1 text-left">Your Email</label>
               <input
                 type="email"
                 name="email"
@@ -207,25 +247,44 @@ const Payment = () => {
                   />
                 </div>
               </div>
-              <div className="flex flex-wrap">
+              <div className="flex flex-wrap gap-5">
                 <div>
                   <p className="mb-1 text-left">Quantity</p>
                   <input
                     type="number"
                     name="quantity"
-                    onChange={(e) => setQuantity(e.target.value)}
+                    onChange={(e) => {
+                      const q = e.target.value;
+                      setQuantity(q);
+                      setTprice(q * tool.price);
+                    }}
                     required
                     placeholder="How much ?"
-                    className="input mb-3 text-[16px] mr-5 input-bordered"
+                    className={
+                      (quantity > tool.maximum || quantity < tool.minimum) &&
+                      quantity !== 0
+                        ? "input mb-3 text-[16px]  input-bordered input-error"
+                        : "input mb-3 text-[16px]  input-bordered"
+                    }
                   />
+                  <small className="text-left text-error block -mt-2">
+                    {quantity > tool.maximum &&
+                      quantity !== 0 &&
+                      `Please decrease you quantity`}
+                  </small>
+                  <small className="text-left text-error block -mt-2">
+                    {quantity < tool.minimum &&
+                      quantity !== 0 &&
+                      `Please increase you quantity`}
+                  </small>
                 </div>
                 <div>
-                  <p className="mb-1 text-left">Price</p>
+                  <p className="mb-1 text-left">Total Price</p>
                   <input
                     type="number"
                     name="totalPrice"
                     required
-                    value={quantity * 10}
+                    value={tPrice}
                     disabled
                     className="input mb-3 text-[16px] mr-5 input-bordered"
                   />
