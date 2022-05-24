@@ -13,61 +13,66 @@ const AddProduct = () => {
   const [min, setMin] = useState(0);
   const [postLoading, setPostLoading] = useState(false);
   const handelAddItem = (e) => {
-    setPostLoading(true);
     e.preventDefault();
-
+    setPostLoading(true);
     const name = e.target.name.value;
     const description = e.target.description.value;
     const price = +e.target.price.value;
     const minimum = +e.target.minimum.value;
     const maximum = +e.target.maximum.value;
     const available = +e.target.available.value;
-    console.log("helooo");
+
     const formData = new FormData();
     formData.append("image", image);
     if (+min <= +max) {
       fetch(
-        `https://api.imgbb.com/1/upload?key=4e5496fb21839e6c601d34be6bd9fb10`,
+        "https://api.imgbb.com/1/upload?key=4e5496fb21839e6c601d34be6bd9fb10",
         {
           method: "POST",
           body: formData,
         }
       )
-        .then((res) => res.json())
-        .then((data) => {
-          const product = {
-            name,
-            description,
-            price,
-            minimum,
-            maximum,
-            available,
-            img: data?.url,
-          };
-          fetch("http://localhost:5000/product", {
-            method: "POST",
-            headers: {
-              authorization: `Bearer ${localStorage.getItem("access-token")}`,
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(product),
-          })
-            .then((res) => {
-              if (res.status === 401 || res.status === 403) {
-                setPostLoading(false);
-                signOut(auth);
-                toast.error("please reLogin");
-                Navigate("/home");
-              }
-              return res.json();
+        .then((res) => {
+          console.log(res);
+          return res.json();
+        })
+        .then((result) => {
+          if (result?.success) {
+            const product = {
+              name,
+              description,
+              price,
+              minimum,
+              maximum,
+              available,
+              img: result?.url,
+            };
+            fetch("http://localhost:5000/product", {
+              method: "POST",
+              headers: {
+                authorization: `Bearer ${localStorage.getItem("access-token")}`,
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(product),
             })
-            .then((data) => {
-              setPostLoading(false);
-              e.target.reset();
-            });
+              .then((res) => {
+                if (res.status === 401 || res.status === 403) {
+                  signOut(auth);
+                  toast.error("please reLogin");
+                  Navigate("/home");
+                }
+                return res.json();
+              })
+              .then((data) => {
+                setPostLoading(false);
+                toast.success("Your product successfully uploaded");
+                e.target.reset();
+              });
+          } else {
+            setPostLoading(false);
+          }
         });
     } else {
-      setPostLoading(false);
       toast.error("Please increase your available quantity");
     }
   };

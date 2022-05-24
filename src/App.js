@@ -27,7 +27,7 @@ function App() {
         <Route path="/blogs" element={<Blogs />}></Route>
         <Route path="/portfolio" element={<Postfolio />}></Route>
         <Route
-          path="/payment/:id"
+          path="/payment/:toolId"
           element={
             <RequireAuth>
               <Payment />

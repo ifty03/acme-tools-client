@@ -1,11 +1,27 @@
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useQuery } from "react-query";
+import { useParams } from "react-router-dom";
+import Loading from "../../Components/Loading/Loading";
 import auth from "../../firebase.init";
 
 const Payment = () => {
   const [user] = useAuthState(auth);
   const [quantity, setQuantity] = useState(0);
+  // const { toolId } = useParams();
 
+  // const { data: tool, isLoading } = useQuery("tool", () =>
+  //   fetch(`http://localhost:5000/tool/${toolId}`, {
+  //     method: "GET",
+  //     headers: {
+  //       authorization: `Bearer ${localStorage.getItem("access-token")}`,
+  //     },
+  //   }).then((res) => res.json())
+  // );
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
+  // console.log(tool);
   const handelOrder = (e) => {
     e.preventDefault();
     const name = e.target.name.value;

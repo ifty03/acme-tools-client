@@ -22,7 +22,7 @@ const Tool = () => {
           <div className="badge badge-outline">Products</div>
         </div>
         <button
-          onClick={() => navigate(`/payment/id`)}
+          onClick={() => navigate(`/payment/toolId`)}
           className="btn btn-primary w-fit ml-auto mt-5"
         >
           Order Now
