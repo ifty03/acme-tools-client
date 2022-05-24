@@ -1,6 +1,11 @@
+import { signOut } from "firebase/auth";
 import React from "react";
+import toast from "react-hot-toast";
 import { useQuery } from "react-query";
+import { Navigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import Loading from "../../Components/Loading/Loading";
+import auth from "../../firebase.init";
 
 const ManageProducts = () => {
   const {
@@ -10,6 +15,41 @@ const ManageProducts = () => {
   } = useQuery("manageTools", () =>
     fetch("http://localhost:5000/allTools").then((res) => res.json())
   );
+
+  const handelDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/tool/${id}`, {
+          method: "DELETE",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
+        })
+          .then((res) => {
+            if (res.status === 401 || res.status === 403) {
+              signOut(auth);
+              localStorage.removeItem("access-token");
+              Navigate("/home");
+            }
+            return res.json();
+          })
+          .then((data) => {
+            refetch();
+            toast.success("Product successfully deleted");
+          });
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+      }
+    });
+  };
+
   if (isLoading) {
     return <Loading />;
   }
@@ -56,7 +96,12 @@ const ManageProducts = () => {
                 <span class="badge">{tool?.price}</span>
               </th>
               <th>
-                <button className="btn btn-error btn-xs">Delete</button>
+                <button
+                  onClick={() => handelDelete(tool._id)}
+                  className="btn btn-error btn-xs"
+                >
+                  Delete
+                </button>
               </th>
             </tr>
           ))}
