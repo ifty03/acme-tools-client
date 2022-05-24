@@ -9,7 +9,9 @@ const Tools = () => {
     isLoading,
     refetch,
   } = useQuery("tools", () =>
-    fetch("http://localhost:5000/tools").then((res) => res.json())
+    fetch("https://sheltered-journey-62217.herokuapp.com/tools").then((res) =>
+      res.json()
+    )
   );
 
   if (isLoading) {

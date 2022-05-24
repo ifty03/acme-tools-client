@@ -4,9 +4,13 @@ import { useQuery } from "react-query";
 import Loading from "../../Components/Loading/Loading";
 import { FaIdCard } from "react-icons/fa";
 import auth from "../../firebase.init";
+import { signOut } from "firebase/auth";
+import { Navigate, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const MyOrders = () => {
   const [user] = useAuthState(auth);
+  const navigate = useNavigate();
   const {
     data: orders,
     isLoading,
@@ -17,12 +21,19 @@ const MyOrders = () => {
       headers: {
         authorization: `Bearer ${localStorage.getItem("access-token")}`,
       },
-    }).then((res) => res.json())
+    }).then((res) => {
+      if (res.status === 401 || res.status === 403) {
+        signOut(auth);
+        toast.error("Please reLogin");
+        localStorage.removeItem("access-token");
+        Navigate("/home");
+      }
+      return res.json();
+    })
   );
   if (isLoading) {
     return <Loading />;
   }
-  console.log(orders?.length);
   return (
     <div className="overflow-x-auto w-11/12 bg-neutral rounded-lg mx-auto">
       <table className="table mx-auto my-10 w-10/12">
@@ -56,7 +67,7 @@ const MyOrders = () => {
                 </div>
               </td>
               <td>
-                <div class="">{order?._id}</div>
+                <div class="">{order?.productId}</div>
               </td>
               <td>
                 <div class="badge">{order?.quantity}</div>
@@ -65,7 +76,10 @@ const MyOrders = () => {
                 <span class="badge">{order?.totalPrice}</span>
               </td>
               <td>
-                <button className="btn btn-success btn-xs ">
+                <button
+                  onClick={() => navigate(`/dashboard/pay/${order?._id}`)}
+                  className="btn btn-success btn-xs "
+                >
                   <FaIdCard /> <span className="font-semibold ml-2">Pay</span>
                 </button>
               </td>
