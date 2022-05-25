@@ -6,10 +6,16 @@ import { useQuery } from "react-query";
 import toast from "react-hot-toast";
 import Loading from "../../Components/Loading/Loading";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "./CheckoutForm";
 
 const Pay = () => {
   const { payId } = useParams();
   const [user] = useAuthState(auth);
+  const stripePromise = loadStripe(
+    "pk_test_51L1TVtFBIaSlFfNXVsw7wg2WrEnZ7w8b0amGGpxAiJT7sns5U0VhzfKI57g3Pdd0alwzvLSyZDeaQJPRT88ieIif00GQdQn6kg"
+  );
 
   const { data: order, isLoading } = useQuery(["payOrder", payId], () =>
     fetch(`http://localhost:5000/order/${payId}`, {
@@ -37,7 +43,7 @@ const Pay = () => {
             <pre>
               <div className="px-5 -mt-6">
                 <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-full overflow-hidden">
+                  <div className="w-10 h-10 rounded-full overflow-hidden border-[1px] border-primary">
                     <img src={user?.photoURL} alt="profile" />
                   </div>
                   <h2 className="ml-2 text-lg text-primary font-semibold">
@@ -74,14 +80,11 @@ const Pay = () => {
         </div>
 
         <div className="px-6 pb-6 pt-2">
-          <h3>
-            hello Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Consequuntur recusandae culpa, veniam eos quis reiciendis voluptate,
-            hic repudiandae dolore, iusto iure. Mollitia deleniti eum nihil
-            cupiditate eius repellat quasi, voluptas magni explicabo delectus
-            praesentium vel tenetur. Necessitatibus id animi, consequatur porro
-            dolore ullam, qui, ipsum tenetur saepe at quod consequuntur.
-          </h3>
+          <Elements stripe={stripePromise}>
+            <div className="bg-neutral mx-2 rounded-lg p-5 shadow-inner shadow-blue-900">
+              <CheckoutForm order={order} />
+            </div>
+          </Elements>
         </div>
       </div>
     </div>
