@@ -1,6 +1,9 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useEffect, useState } from "react";
+import { signOut } from "firebase/auth";
+import { Navigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import auth from "../../firebase.init";
 
 const CheckoutForm = ({ order }) => {
   const stripe = useStripe();
@@ -11,7 +14,7 @@ const CheckoutForm = ({ order }) => {
   const [processing, setProcessing] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
 
-  const { totalPrice, phone, email } = order;
+  const { totalPrice, phone, email, _id } = order;
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     fetch("http://localhost:5000/create-payment-intent", {
@@ -22,7 +25,15 @@ const CheckoutForm = ({ order }) => {
       },
       body: JSON.stringify({ totalPrice }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          signOut(auth);
+          toast.error("Please reLogin");
+          localStorage.removeItem("access-token");
+          Navigate("/home");
+        }
+        return res.json();
+      })
       .then((data) => {
         if (data?.clientSecret) {
           setClientSecret(data.clientSecret);
@@ -76,12 +87,38 @@ const CheckoutForm = ({ order }) => {
       setTranjectionId("");
       setCardError(intentError?.message);
     } else {
+      const payment = {
+        paid: true,
+        status: "pending",
+        transitionId: paymentIntent.id,
+      };
+
       setCardError("");
       setProcessing(false);
       setSuccess("Your payment is successfully done !");
       setTranjectionId(`Transaction Id: ${paymentIntent.id}`);
-      console.log(paymentIntent);
       toast.success("Hurray your payment is successfully done");
+
+      /* store payment data in database */
+      fetch(`http://localhost:5000/payment/${_id}`, {
+        method: "PUT",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(payment),
+      })
+        .then((res) => {
+          if (res.status === 401 || res.status === 403) {
+            signOut(auth);
+            toast.error("Please reLogin");
+            setProcessing(false);
+            localStorage.removeItem("access-token");
+            Navigate("/home");
+          }
+          return res.json();
+        })
+        .then((data) => setProcessing(false));
     }
   };
   return (
