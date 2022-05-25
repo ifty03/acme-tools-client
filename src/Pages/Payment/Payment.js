@@ -14,6 +14,7 @@ const Payment = () => {
   const [orderLoading, setOrderLoading] = useState(false);
   const { toolId } = useParams();
 
+  console.log(quantity);
   const { data: tool, isLoading } = useQuery(["tool", toolId], () =>
     fetch(`http://localhost:5000/tool/${toolId}`, {
       method: "GET",
@@ -37,6 +38,9 @@ const Payment = () => {
     return <Loading />;
   }
   console.log(tool);
+  if (!quantity) {
+    setQuantity(tool?.minimum);
+  }
   const handelOrder = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -262,6 +266,7 @@ const Payment = () => {
                   <input
                     type="number"
                     name="quantity"
+                    defaultValue={tool?.minimum}
                     onChange={(e) => {
                       const q = e.target.value;
                       setQuantity(q);
@@ -293,14 +298,14 @@ const Payment = () => {
                     type="number"
                     name="totalPrice"
                     required
-                    value={tPrice}
+                    value={tPrice || tool?.minimum * tool?.price}
                     disabled
                     className="input mb-3 text-[16px] mr-5 input-bordered"
                   />
                 </div>
               </div>
               <input
-                htmlFor="booking-modal"
+                disabled={quantity > tool?.maximum || quantity < tool?.minimum}
                 className="btn btn-primary mt-3 w-full"
                 type="submit"
                 value="SUBMIT"

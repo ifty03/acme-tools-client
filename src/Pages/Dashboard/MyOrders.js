@@ -3,14 +3,17 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
 import Loading from "../../Components/Loading/Loading";
 import { FaIdCard } from "react-icons/fa";
+import { MdCancel } from "react-icons/md";
 import auth from "../../firebase.init";
 import { signOut } from "firebase/auth";
 import { Navigate, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const MyOrders = () => {
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
+
   const {
     data: orders,
     isLoading,
@@ -31,6 +34,45 @@ const MyOrders = () => {
       return res.json();
     })
   );
+
+  /* handel delete one order */
+  const handelDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Cancel it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/order/${id}`, {
+          method: "DELETE",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("access-token")}`,
+            "content-type": "application/json",
+          },
+        })
+          .then((res) => {
+            if (res.status === 401 || res.status === 403) {
+              signOut(auth);
+              toast.error("Please reLogin");
+              localStorage.removeItem("access-token");
+              Navigate("/home");
+            }
+            return res.json();
+          })
+          .then((data) => {
+            refetch();
+            toast.success("Your order is canceled !");
+          });
+
+        Swal.fire("Canceled!", "Your order is canceled !", "success");
+      }
+    });
+  };
+
   if (isLoading) {
     return <Loading />;
   }
@@ -40,10 +82,11 @@ const MyOrders = () => {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Product Id</th>
+
             <th>Quantity</th>
             <th>Total Price</th>
             <th>Payment</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -66,9 +109,7 @@ const MyOrders = () => {
                   </div>
                 </div>
               </td>
-              <td>
-                <div class="">{order?.productId}</div>
-              </td>
+
               <td>
                 <div class="badge">{order?.quantity}</div>
               </td>
@@ -76,12 +117,34 @@ const MyOrders = () => {
                 <span class="badge">{order?.totalPrice}</span>
               </td>
               <td>
-                <button
-                  onClick={() => navigate(`/dashboard/pay/${order?._id}`)}
-                  className="btn btn-success btn-xs "
-                >
-                  <FaIdCard /> <span className="font-semibold ml-2">Pay</span>
-                </button>
+                {order?.paid ? (
+                  <button className="btn btn-accent btn-xs">
+                    {order?.status}
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => navigate(`/dashboard/pay/${order?._id}`)}
+                    className="btn btn-success btn-xs "
+                  >
+                    <FaIdCard /> <span className="font-semibold ml-2">Pay</span>
+                  </button>
+                )}
+              </td>
+              <td>
+                {order?.paid ? (
+                  <div className="">
+                    <p>Transition Id:</p>
+                    <p className="text-accent">{order?.transitionId}</p>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => handelDelete(order?._id)}
+                    className="btn btn-error btn-xs "
+                  >
+                    {" "}
+                    Cancel
+                  </button>
+                )}
               </td>
             </tr>
           ))}

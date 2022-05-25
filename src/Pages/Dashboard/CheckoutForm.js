@@ -14,31 +14,43 @@ const CheckoutForm = ({ order }) => {
   const [processing, setProcessing] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
 
-  const { totalPrice, phone, email, _id } = order;
+  // const { totalPrice, phone, email, _id } = order;
+
+  const totalPrice = order?.totalPrice;
+  const phone = order?.phone;
+  const email = order?.email;
+  const _id = order?._id;
+
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    fetch("http://localhost:5000/create-payment-intent", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("access-token")}`,
-      },
-      body: JSON.stringify({ totalPrice }),
-    })
-      .then((res) => {
-        if (res.status === 401 || res.status === 403) {
-          signOut(auth);
-          toast.error("Please reLogin");
-          localStorage.removeItem("access-token");
-          Navigate("/home");
-        }
-        return res.json();
+    if (totalPrice) {
+      fetch("http://localhost:5000/create-payment-intent", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        },
+        body: JSON.stringify({ totalPrice }),
       })
-      .then((data) => {
-        if (data?.clientSecret) {
-          setClientSecret(data.clientSecret);
-        }
-      });
+        .then((res) => {
+          if (res.status === 401 || res.status === 403) {
+            signOut(auth);
+            toast.error("Please reLogin");
+            localStorage.removeItem("access-token");
+            Navigate("/home");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          if (data?.clientSecret) {
+            setClientSecret(data.clientSecret);
+          }
+          if (!data?.clientSecret) {
+            signOut(auth);
+            toast.error("Please reLogin Your clientSecret doesn't find");
+          }
+        });
+    }
   }, [totalPrice]);
 
   const handleSubmit = async (event) => {
