@@ -34,7 +34,7 @@ const ManageAllOrders = () => {
   }
 
   return (
-    <div className="grid lg:grid-cols-2 gap-5 mx-6 rounded-lg my-8 bg-neutral p-6">
+    <div className="grid lg:grid-cols-2 gap-5 md:mx-6 sm:mx-auto rounded-lg my-8 bg-neutral p-6">
       {orders.map((order) => (
         <Order key={order?._id} order={order} refetch={refetch}></Order>
       ))}

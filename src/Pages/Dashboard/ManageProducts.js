@@ -13,7 +13,19 @@ const ManageProducts = () => {
     isLoading,
     refetch,
   } = useQuery("manageTools", () =>
-    fetch("http://localhost:5000/allTools").then((res) => res.json())
+    fetch("http://localhost:5000/allTools", {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        "content-type": "application/json",
+      },
+    }).then((res) => {
+      if (res.status === 401 || res.status === 403) {
+        signOut(auth);
+        localStorage.removeItem("access-token");
+        toast.error("please-reLogin");
+      }
+      return res.json();
+    })
   );
 
   const handelDelete = (id) => {

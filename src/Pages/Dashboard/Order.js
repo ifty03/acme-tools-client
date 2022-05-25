@@ -83,7 +83,7 @@ const Order = ({ order, refetch }) => {
   };
 
   return (
-    <article class="bg-base-100  rounded-xl">
+    <article class="bg-base-100 rounded-xl">
       <div class="flex items-start p-6">
         <a href="/" class="block shrink-0">
           <img

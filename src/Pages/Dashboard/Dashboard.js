@@ -10,10 +10,14 @@ import { NavLink, Outlet } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import useIsAdmin from "../../Hooks/useIsAdmin";
+import Loading from "../../Components/Loading/Loading";
 
 const Dashboard = () => {
-  const [user] = useAuthState(auth);
+  const [user, isLoading] = useAuthState(auth);
   const [admin] = useIsAdmin(user);
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <div className="drawer drawer-mobile">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
