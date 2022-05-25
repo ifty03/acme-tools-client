@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Navigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import Loading from "../../Components/Loading/Loading";
 import auth from "../../firebase.init";
 
 const Order = ({ order, refetch }) => {

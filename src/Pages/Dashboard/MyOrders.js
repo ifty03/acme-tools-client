@@ -9,11 +9,13 @@ import { signOut } from "firebase/auth";
 import { Navigate, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import useIsAdmin from "../../Hooks/useIsAdmin";
 
 const MyOrders = () => {
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
-
+  const [admin] = useIsAdmin(user);
+  console.log(" ", admin);
   const {
     data: orders,
     isLoading,

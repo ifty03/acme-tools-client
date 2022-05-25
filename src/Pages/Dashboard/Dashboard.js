@@ -7,8 +7,13 @@ import { IoMdRemoveCircle } from "react-icons/io";
 import { MdAddLocationAlt } from "react-icons/md";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
+import useIsAdmin from "../../Hooks/useIsAdmin";
 
 const Dashboard = () => {
+  const [user] = useAuthState(auth);
+  const [admin] = useIsAdmin(user);
   return (
     <div className="drawer drawer-mobile">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -24,36 +29,45 @@ const Dashboard = () => {
               <CgProfile /> My Profile
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/dashboard/myOrders">
-              <MdOutlineBorderColor /> My Orders
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/addReview">
-              <MdReviews /> Add A Review
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/manageProduct">
-              <IoMdRemoveCircle /> Manage Products
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/addProduct">
-              <BiAddToQueue /> Add A Product
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/manageAllOrders">
-              <MdAddLocationAlt /> Manage All Orders
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/makeAdmin">
-              <MdAdminPanelSettings /> Make Admin
-            </NavLink>
-          </li>
+          {!admin && (
+            <>
+              <li>
+                <NavLink to="/dashboard/myOrders">
+                  <MdOutlineBorderColor /> My Orders
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/addReview">
+                  <MdReviews /> Add A Review
+                </NavLink>
+              </li>
+            </>
+          )}
+          {admin && (
+            <>
+              {" "}
+              <li>
+                <NavLink to="/dashboard/manageProduct">
+                  <IoMdRemoveCircle /> Manage Products
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/addProduct">
+                  <BiAddToQueue /> Add A Product
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/manageAllOrders">
+                  <MdAddLocationAlt /> Manage All Orders
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/makeAdmin">
+                  <MdAdminPanelSettings /> Make Admin
+                </NavLink>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </div>
