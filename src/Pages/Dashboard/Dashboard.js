@@ -6,7 +6,7 @@ import { BiAddToQueue } from "react-icons/bi";
 import { IoMdRemoveCircle } from "react-icons/io";
 import { MdAddLocationAlt } from "react-icons/md";
 import { MdAdminPanelSettings } from "react-icons/md";
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import useIsAdmin from "../../Hooks/useIsAdmin";
@@ -28,6 +28,28 @@ const Dashboard = () => {
       <div className="drawer-side">
         <label for="my-drawer-2" className="drawer-overlay"></label>
         <ul className="menu p-4 overflow-y-auto w-80 bg-neutral text-base-content">
+          <div class="sticky inset-x-0 bottom-0 border-t border-neutral">
+            <Link
+              to="/dashboard/myProfile"
+              class="flex items-center p-4 bg-base-100 rounded-lg shrink-0"
+            >
+              <img
+                class="object-cover w-10 h-10 rounded-full"
+                src={user?.photoURL}
+                alt="Simon Lewis"
+              />
+
+              <div class="ml-1.5">
+                <p class="text-xs">
+                  <strong class="block font-medium text-left">
+                    {user?.displayName}
+                  </strong>
+
+                  <span> {user?.email} </span>
+                </p>
+              </div>
+            </Link>
+          </div>
           <li>
             <NavLink to="/dashboard/myProfile">
               <CgProfile /> My Profile
