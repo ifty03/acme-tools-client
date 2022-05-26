@@ -16,26 +16,34 @@ const Tool = ({ tool }) => {
           {name}
           <div className="badge badge-secondary">Sold</div>
         </h2>
-        <p>
-          <span>Available: </span>
+        <div className="flex flex-start mt-2 items-center">
+          <div class="badge badge-xs badge-accent mr-2"></div>
+          <span className="text-lg font-semibold mr-2">Available: </span>
           {available}
-        </p>
-        <p>
-          <span>Minimum: </span>
+        </div>
+        <div className="flex flex-start -mt-2 items-center">
+          <div class="badge badge-xs badge-accent mr-2"></div>
+          <span className="text-lg font-semibold mr-2">Minimum: </span>
           {minimum}
-        </p>
-        <p>
-          <span>Maximum: </span>
+        </div>
+        <div className="flex flex-start -mt-2 items-center">
+          <div class="badge badge-xs badge-accent mr-2"></div>
+          <span className="text-lg font-semibold mr-2">Maximum: </span>
           {maximum}
-        </p>
-        <p>
-          <span>Price: </span>
+        </div>
+        <div className="flex flex-start -mt-2 items-center">
+          <div class="badge badge-xs badge-accent mr-2"></div>
+          <span className="text-lg font-semibold mr-2">Price: </span>
           {price}
+        </div>
+        <div className="flex flex-start -mt-2 items-center">
+          <div class="badge badge-xs badge-accent mr-2"></div>
+          <span className="text-lg font-semibold mr-2">Description: </span>
+        </div>
+        <p title={description} className="text-left">
+          {description.slice(0, 70)}
         </p>
-        <p>
-          <span>Description</span>
-          {description}
-        </p>
+
         <div className="card-actions justify-end">
           <div className="badge badge-outline">Limited</div>
           <div className="badge badge-outline">Effective</div>
