@@ -6,10 +6,10 @@ const useIsAdmin = (user) => {
   const [admin, setAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const email = user?.email;
-  console.log(email);
+
   useEffect(() => {
     if (email) {
-      fetch(`http://localhost:5000/admin/${email}`, {
+      fetch(`https://sheltered-journey-62217.herokuapp.com/admin/${email}`, {
         method: "GET",
         headers: {
           authorization: `Bearer ${localStorage.getItem("access-token")}`,

@@ -13,7 +13,7 @@ const ManageAllOrders = () => {
     isLoading,
     refetch,
   } = useQuery("allOrders", () =>
-    fetch("http://localhost:5000/allOrders", {
+    fetch("https://sheltered-journey-62217.herokuapp.com/allOrders", {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("access-token")}`,

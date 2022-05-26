@@ -13,7 +13,7 @@ const ManageProducts = () => {
     isLoading,
     refetch,
   } = useQuery("manageTools", () =>
-    fetch("http://localhost:5000/allTools", {
+    fetch("https://sheltered-journey-62217.herokuapp.com/allTools", {
       headers: {
         authorization: `Bearer ${localStorage.getItem("access-token")}`,
         "content-type": "application/json",
@@ -39,7 +39,7 @@ const ManageProducts = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/tool/${id}`, {
+        fetch(`https://sheltered-journey-62217.herokuapp.com/tool/${id}`, {
           method: "DELETE",
           headers: {
             authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -99,13 +99,13 @@ const ManageProducts = () => {
                 </div>
               </td>
               <td>
-                <div class="">{tool?._id}</div>
+                <div className="">{tool?._id}</div>
               </td>
               <td>
-                <div class="badge">{tool?.available}</div>
+                <div className="badge">{tool?.available}</div>
               </td>
               <th>
-                <span class="badge">{tool?.price}</span>
+                <span className="badge">{tool?.price}</span>
               </th>
               <th>
                 <button

@@ -71,7 +71,7 @@ const SignUp = () => {
           /* user data update in database */
           const user = { name, img: data.url };
 
-          fetch(`http://localhost:5000/user/${email}`, {
+          fetch(`https://sheltered-journey-62217.herokuapp.com/user/${email}`, {
             method: "PUT",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(user),

@@ -46,7 +46,7 @@ const AddProduct = () => {
               available,
               img: result?.data?.url,
             };
-            fetch("http://localhost:5000/product", {
+            fetch("https://sheltered-journey-62217.herokuapp.com/product", {
               method: "POST",
               headers: {
                 authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -81,7 +81,7 @@ const AddProduct = () => {
   return (
     <div>
       <div className="grid lg:grid-cols-12 grid-cols-1 gap-10 w-11/12 mx-auto bg-neutral p-8 rounded-lg mt-10">
-        <div className="lg:col-span-5 flex min-h-screen items-center">
+        <div className="lg:col-span-5 flex lg:min-h-screen items-center">
           <img
             className="w-4/6 lg:w-full mx-auto"
             src={add}

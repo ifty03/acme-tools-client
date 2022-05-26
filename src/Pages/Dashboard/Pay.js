@@ -18,7 +18,7 @@ const Pay = () => {
   );
 
   const { data: order, isLoading } = useQuery(["payOrder", payId], () =>
-    fetch(`http://localhost:5000/order/${payId}`, {
+    fetch(`https://sheltered-journey-62217.herokuapp.com/order/${payId}`, {
       headers: {
         authorization: `Berar ${localStorage.getItem("access-token")}`,
       },
@@ -37,9 +37,9 @@ const Pay = () => {
   console.log(order);
   return (
     <div className="bg-neutral lg:w-7/12 md:w-4/6 mx-auto p-8 mt-5 rounded-lg ">
-      <div class="card mx-auto  bg-base-100 shadow-lg shadow-blue-900">
-        <div class="card-body">
-          <div class="mockup-code">
+      <div className="card mx-auto  bg-base-100 shadow-lg shadow-blue-900">
+        <div className="card-body">
+          <div className="mockup-code">
             <pre>
               <div className="px-5 -mt-6">
                 <div className="flex items-center">
@@ -50,7 +50,7 @@ const Pay = () => {
                     {user?.displayName}
                   </h2>
                 </div>
-                <h2 class="card-title mt-2">
+                <h2 className="card-title mt-2">
                   Hi,
                   <span className="text-primary text-sm -mb-2">
                     {user?.displayName}
@@ -61,14 +61,14 @@ const Pay = () => {
                   <span className="text-primary">{order?.name}</span>
                 </h1>
                 <p className="text-left mt-3">
-                  <div class="badge badge-primary badge-xs"></div>{" "}
+                  <div className="badge badge-primary badge-xs"></div>{" "}
                   <span>
                     <span className="font-semibold">Quantity:</span>{" "}
                     {order?.quantity}
                   </span>
                 </p>
                 <p className="text-left mt-3">
-                  <div class="badge badge-primary badge-xs"></div>{" "}
+                  <div className="badge badge-primary badge-xs"></div>{" "}
                   <span>
                     <span className="font-semibold">Total Price:</span> $
                     {order?.totalPrice}

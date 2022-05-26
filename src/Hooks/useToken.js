@@ -4,7 +4,7 @@ const useToken = (user) => {
   const email = user?.user?.email;
   useEffect(() => {
     if (email) {
-      fetch(`http://localhost:5000/user/${email}`, {
+      fetch(`https://sheltered-journey-62217.herokuapp.com/user/${email}`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ email }),

@@ -6,7 +6,9 @@ import Loading from "../../../Components/Loading/Loading";
 
 const Reviews = () => {
   const { data, isLoading } = useQuery("review", () =>
-    fetch("http://localhost:5000/reviews").then((res) => res.json())
+    fetch("https://sheltered-journey-62217.herokuapp.com/reviews").then((res) =>
+      res.json()
+    )
   );
   if (isLoading) {
     return <Loading />;

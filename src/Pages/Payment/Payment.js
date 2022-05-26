@@ -14,9 +14,8 @@ const Payment = () => {
   const [orderLoading, setOrderLoading] = useState(false);
   const { toolId } = useParams();
 
-  console.log(quantity);
   const { data: tool, isLoading } = useQuery(["tool", toolId], () =>
-    fetch(`http://localhost:5000/tool/${toolId}`, {
+    fetch(`https://sheltered-journey-62217.herokuapp.com/tool/${toolId}`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -37,7 +36,7 @@ const Payment = () => {
   if (isLoading || orderLoading) {
     return <Loading />;
   }
-  console.log(tool);
+
   if (!quantity) {
     setQuantity(tool?.minimum);
   }
@@ -65,7 +64,7 @@ const Payment = () => {
     };
     if (quantity <= tool?.maximum && quantity >= tool?.minimum) {
       setOrderLoading(true);
-      fetch("http://localhost:5000/order", {
+      fetch("https://sheltered-journey-62217.herokuapp.com/order", {
         method: "POST",
         headers: {
           authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -308,7 +307,7 @@ const Payment = () => {
                 disabled={quantity > tool?.maximum || quantity < tool?.minimum}
                 className="btn btn-primary mt-3 w-full"
                 type="submit"
-                value="SUBMIT"
+                value="CONFIRM ORDER"
               />
             </form>
           </div>

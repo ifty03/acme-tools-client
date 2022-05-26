@@ -22,7 +22,7 @@ const AddReview = () => {
     const img = user?.photoURL;
     const review = { rate, name, description, img, email: user?.email };
     if (description.length > 50 && description.length < 250) {
-      fetch("http://localhost:5000/reviews", {
+      fetch("https://sheltered-journey-62217.herokuapp.com/reviews", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(review),

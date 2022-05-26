@@ -28,20 +28,20 @@ const Dashboard = () => {
       <div className="drawer-side">
         <label for="my-drawer-2" className="drawer-overlay"></label>
         <ul className="menu p-4 overflow-y-auto w-80 bg-neutral text-base-content">
-          <div class="sticky inset-x-0 bottom-0 border-t border-neutral">
+          <div className="sticky inset-x-0 bottom-0 border-t border-neutral">
             <Link
               to="/dashboard/myProfile"
-              class="flex items-center p-4 bg-base-100 rounded-lg shrink-0"
+              className="flex items-center p-4 bg-base-100 rounded-lg shrink-0"
             >
               <img
-                class="object-cover w-10 h-10 rounded-full"
+                className="object-cover w-10 h-10 rounded-full"
                 src={user?.photoURL}
                 alt="Simon Lewis"
               />
 
-              <div class="ml-1.5">
-                <p class="text-xs">
-                  <strong class="block font-medium text-left">
+              <div className="ml-1.5">
+                <p className="text-xs">
+                  <strong className="block font-medium text-left">
                     {user?.displayName}
                   </strong>
 

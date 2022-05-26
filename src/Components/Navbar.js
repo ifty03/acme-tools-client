@@ -2,7 +2,7 @@ import { signOut } from "firebase/auth";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { CgMenuGridO } from "react-icons/cg";
 import { FcManager } from "react-icons/fc";
 import auth from "../firebase.init";
@@ -15,7 +15,6 @@ const Navbar = () => {
   if (loading) {
     return <Loading />;
   }
-  console.log(user);
   return (
     <div className="navbar bg-base-200 flex justify-between py-3  md:px-10 px-5 ">
       {/* navbar item */}
@@ -42,19 +41,19 @@ const Navbar = () => {
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-200 rounded-box w-52"
           >
             <li>
-              <Link to="/home">Home</Link>
+              <NavLink to="/home">Home</NavLink>
             </li>
             {user && (
               <li>
-                <Link to="dashboard">Dashboard</Link>
+                <NavLink to="dashboard">Dashboard</NavLink>
               </li>
             )}
 
             <li>
-              <Link to="/portfolio">Portfolio</Link>
+              <NavLink to="/portfolio">Portfolio</NavLink>
             </li>
             <li>
-              <Link to="/blogs">Blogs</Link>
+              <NavLink to="/blogs">Blogs</NavLink>
             </li>
           </ul>
         </div>
@@ -65,19 +64,19 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">
           <li>
-            <Link to="/home">Home</Link>
+            <NavLink to="/home">Home</NavLink>
           </li>
           {user && (
             <li>
-              <Link to="dashboard">Dashboard</Link>
+              <NavLink to="dashboard">Dashboard</NavLink>
             </li>
           )}
 
           <li>
-            <Link to="/portfolio">Portfolio</Link>
+            <NavLink to="/portfolio">Portfolio</NavLink>
           </li>
           <li>
-            <Link to="/blogs">Blogs</Link>
+            <NavLink to="/blogs">Blogs</NavLink>
           </li>
         </ul>
       </div>

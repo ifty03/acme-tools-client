@@ -12,11 +12,14 @@ import auth from "../../firebase.init";
 const MyProfile = () => {
   const [user] = useAuthState(auth);
   const { data, isLoading } = useQuery("user", () =>
-    fetch(`http://localhost:5000/user?email=${user?.email}`, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("access-token")}`,
-      },
-    }).then((res) => {
+    fetch(
+      `https://sheltered-journey-62217.herokuapp.com/user?email=${user?.email}`,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        },
+      }
+    ).then((res) => {
       if (res.status === 401 || res.status === 403) {
         signOut(auth);
         Navigate("/");
@@ -75,10 +78,25 @@ const MyProfile = () => {
               <p className="text-xl font-semibold mb-2">{data?.phone}</p>
             </>
           )}
-          {data?.address && (
+          {data?.linkedin && (
             <>
               {" "}
               <h2 className="text-md font-semibold text-primary">
+                Linkedin Profile:
+              </h2>{" "}
+              <a
+                className="text-xl font-semibold mb-2"
+                href={data?.linkedin}
+                target="_blank"
+              >
+                {data?.linkedin}
+              </a>
+            </>
+          )}
+          {data?.address && (
+            <>
+              {" "}
+              <h2 className="text-md font-semibold mt-2 text-primary">
                 Address:
               </h2>{" "}
               <p className="text-xl font-semibold mb-2">{data?.address}</p>

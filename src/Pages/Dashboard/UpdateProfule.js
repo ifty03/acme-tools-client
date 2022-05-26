@@ -25,7 +25,7 @@ const UpdateProfule = () => {
 
   const onSubmit = (data) => {
     setUpdating(true);
-    fetch(`http://localhost:5000/user/${user?.email}`, {
+    fetch(`https://sheltered-journey-62217.herokuapp.com/user/${user?.email}`, {
       method: "PUT",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(data),
@@ -99,6 +99,27 @@ const UpdateProfule = () => {
             />
             {errors.address && (
               <span className="text-error -mt-2">This field is required</span>
+            )}
+            <fieldset className="w-full space-y-1 text-gray-400">
+              <label for="url" className="block text-sm font-medium">
+                Linkedin Profile
+              </label>
+              <div className="flex">
+                <span className="flex items-center px-3 pointer-events-none sm:text-sm rounded-l-md bg-gray-700 text-gray-200">
+                  https://
+                </span>
+                <input
+                  type="text"
+                  name="linkedin"
+                  id="url"
+                  placeholder="www.yourProfile.com"
+                  className="flex pl-3 flex-1 input-bordered h-10 sm:text-sm text-[16px] rounded-r-md focus:ring-inset  text-gray-400 bg-base-100 focus:ring-violet-600"
+                  {...register("linkedin", { required: true })}
+                />
+              </div>
+            </fieldset>
+            {errors.linkedin && (
+              <span className="text-error mt-1">This field is required</span>
             )}
 
             <input

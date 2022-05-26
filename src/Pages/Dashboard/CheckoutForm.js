@@ -24,14 +24,17 @@ const CheckoutForm = ({ order }) => {
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     if (totalPrice) {
-      fetch("http://localhost:5000/create-payment-intent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("access-token")}`,
-        },
-        body: JSON.stringify({ totalPrice }),
-      })
+      fetch(
+        "https://sheltered-journey-62217.herokuapp.com/create-payment-intent",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
+          body: JSON.stringify({ totalPrice }),
+        }
+      )
         .then((res) => {
           if (res.status === 401 || res.status === 403) {
             signOut(auth);
@@ -112,7 +115,7 @@ const CheckoutForm = ({ order }) => {
       toast.success("Hurray your payment is successfully done");
 
       /* store payment data in database */
-      fetch(`http://localhost:5000/payment/${_id}`, {
+      fetch(`https://sheltered-journey-62217.herokuapp.com/payment/${_id}`, {
         method: "PUT",
         headers: {
           authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -154,7 +157,7 @@ const CheckoutForm = ({ order }) => {
 
       {processing ? (
         <div className="flex justify-start">
-          <button class="btn loading btn-success btn-xs mt-5">
+          <button className="btn loading btn-success btn-xs mt-5">
             Processing
           </button>
         </div>

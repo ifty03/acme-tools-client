@@ -21,6 +21,7 @@ import ManageProducts from "../src/Pages/Dashboard/ManageProducts";
 import Pay from "./Pages/Dashboard/Pay";
 import ManageAllOrders from "./Pages/Dashboard/ManageAllOrders";
 import RequirAdmin from "./Components/RequireAdmin";
+import ErrorPage from "./Components/ErrorPage";
 
 function App() {
   return (
@@ -88,6 +89,7 @@ function App() {
         </Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signUp" element={<SignUp />}></Route>
+        <Route path="*" element={<ErrorPage />}></Route>
       </Routes>
       <Toaster />
       <Footer />

@@ -21,12 +21,15 @@ const MyOrders = () => {
     isLoading,
     refetch,
   } = useQuery("orders", () =>
-    fetch(`http://localhost:5000/orders?email=${user?.email}`, {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("access-token")}`,
-      },
-    }).then((res) => {
+    fetch(
+      `https://sheltered-journey-62217.herokuapp.com/orders?email=${user?.email}`,
+      {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        },
+      }
+    ).then((res) => {
       if (res.status === 401 || res.status === 403) {
         signOut(auth);
         toast.error("Please reLogin");
@@ -49,7 +52,7 @@ const MyOrders = () => {
       confirmButtonText: "Yes, Cancel it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/order/${id}`, {
+        fetch(`https://sheltered-journey-62217.herokuapp.com/order/${id}`, {
           method: "DELETE",
           headers: {
             authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -113,10 +116,10 @@ const MyOrders = () => {
               </td>
 
               <td>
-                <div class="badge">{order?.quantity}</div>
+                <div className="badge">{order?.quantity}</div>
               </td>
               <td>
-                <span class="badge">{order?.totalPrice}</span>
+                <span className="badge">{order?.totalPrice}</span>
               </td>
               <td>
                 {order?.paid ? (
