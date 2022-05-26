@@ -1,9 +1,9 @@
 import React from "react";
 import Badge from "./Badge";
 
-const Blog1 = () => {
+const Blog3 = () => {
   return (
-    <article class="p-6 bg-neutral mt-8 sm:p-8 shadow-md shadow-blue-900 lg:w-4/6 md:w-5/6 w-11/12 mx-auto rounded-xl ">
+    <article class="p-6 mt-8 bg-neutral sm:p-8 shadow-md shadow-blue-900 lg:w-4/6 md:w-5/6 w-11/12 mx-auto rounded-xl ">
       <div class="flex items-start">
         <div
           class="hidden sm:grid sm:h-20 sm:w-20 sm:shrink-0 sm:place-content-center sm:rounded-full sm:border-2 sm:border-indigo-500"
@@ -20,22 +20,20 @@ const Blog1 = () => {
 
         <div class="sm:ml-8">
           <strong class="rounded border w-fit mr-auto block border-indigo-500 bg-indigo-500 px-3 py-1.5 text-[10px] font-medium text-white">
-            Question No: 1
+            Question No: 3
           </strong>
 
           <h2 class="mt-4 text-lg text-left font-medium sm:text-xl">
-            $ How will you improve the performance of a React Application?
+            $ How does prototypical inheritance work?
           </h2>
 
           <p class="mt-3 text-md text-left">
-            <strong>Answer: </strong> If you want to improve your react
-            application performance. follow this steps, 1. Avoid Anonymous
-            Functions. Since anonymous functions aren't assigned an identifier
-            (via const/let/var), they aren't persistent whenever this functional
-            component inevitably gets rendered again. you also Avoid Frequent
-            Mounting/Unmounting and Avoid Object Literals for solve this
-            performance you will use{" "}
-            <strong>React.memo, React.lazy and React.Suspense</strong>
+            <strong>Answer: </strong>In prototypal inheritance, an object
+            “inherits” properties from another object via the prototype linkage.
+            the core idea of Prototypal Inheritance is that an object can point
+            to another object and inherit all its properties. The main purpose
+            is to allow multiple instances of an object to share common
+            properties
           </p>
 
           <div class="mt-4 sm:flex sm:items-center sm:gap-2">
@@ -68,9 +66,9 @@ const Blog1 = () => {
         </div>
       </div>
       {/* button badge */}
-      <Badge>React Performance</Badge>
+      <Badge>prototypical inheritance</Badge>
     </article>
   );
 };
 
-export default Blog1;
+export default Blog3;

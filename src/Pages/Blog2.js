@@ -1,9 +1,9 @@
 import React from "react";
 import Badge from "./Badge";
 
-const Blog1 = () => {
+const Blog2 = () => {
   return (
-    <article class="p-6 bg-neutral mt-8 sm:p-8 shadow-md shadow-blue-900 lg:w-4/6 md:w-5/6 w-11/12 mx-auto rounded-xl ">
+    <article class="p-6 mt-8 bg-neutral sm:p-8 shadow-md shadow-blue-900 lg:w-4/6 md:w-5/6 w-11/12 mx-auto rounded-xl ">
       <div class="flex items-start">
         <div
           class="hidden sm:grid sm:h-20 sm:w-20 sm:shrink-0 sm:place-content-center sm:rounded-full sm:border-2 sm:border-indigo-500"
@@ -20,22 +20,24 @@ const Blog1 = () => {
 
         <div class="sm:ml-8">
           <strong class="rounded border w-fit mr-auto block border-indigo-500 bg-indigo-500 px-3 py-1.5 text-[10px] font-medium text-white">
-            Question No: 1
+            Question No: 2
           </strong>
 
           <h2 class="mt-4 text-lg text-left font-medium sm:text-xl">
-            $ How will you improve the performance of a React Application?
+            $ What are the different ways to manage a state in a React
+            application?
           </h2>
 
           <p class="mt-3 text-md text-left">
-            <strong>Answer: </strong> If you want to improve your react
-            application performance. follow this steps, 1. Avoid Anonymous
-            Functions. Since anonymous functions aren't assigned an identifier
-            (via const/let/var), they aren't persistent whenever this functional
-            component inevitably gets rendered again. you also Avoid Frequent
-            Mounting/Unmounting and Avoid Object Literals for solve this
-            performance you will use{" "}
-            <strong>React.memo, React.lazy and React.Suspense</strong>
+            <strong>Answer: </strong> There are four main types of state you
+            need to properly manage in your React apps.{" "}
+            <strong>1. Local state</strong> Local state is data we manage in one
+            or another component. <strong>2. Global state</strong> Global state
+            is data we manage across multiple components.{" "}
+            <strong> 3. Server state</strong> server is a Data that comes from
+            an external server that must be integrated with our UI state.{" "}
+            <strong>4. URL state</strong> url state is a Data that exists on our
+            URLs, including the pathname and query parameters.
           </p>
 
           <div class="mt-4 sm:flex sm:items-center sm:gap-2">
@@ -68,9 +70,9 @@ const Blog1 = () => {
         </div>
       </div>
       {/* button badge */}
-      <Badge>React Performance</Badge>
+      <Badge>React State</Badge>
     </article>
   );
 };
 
-export default Blog1;
+export default Blog2;

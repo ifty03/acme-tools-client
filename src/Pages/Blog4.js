@@ -1,7 +1,7 @@
 import React from "react";
 import Badge from "./Badge";
 
-const Blog1 = () => {
+const Blog4 = () => {
   return (
     <article class="p-6 bg-neutral mt-8 sm:p-8 shadow-md shadow-blue-900 lg:w-4/6 md:w-5/6 w-11/12 mx-auto rounded-xl ">
       <div class="flex items-start">
@@ -20,22 +20,24 @@ const Blog1 = () => {
 
         <div class="sm:ml-8">
           <strong class="rounded border w-fit mr-auto block border-indigo-500 bg-indigo-500 px-3 py-1.5 text-[10px] font-medium text-white">
-            Question No: 1
+            Question No: 4
           </strong>
 
           <h2 class="mt-4 text-lg text-left font-medium sm:text-xl">
-            $ How will you improve the performance of a React Application?
+            $ Why you do not set the state directly in React. For example, if
+            you have const [products, setProducts] = useState([]). Why you do
+            not set products = [...] instead, you use the setProducts?
           </h2>
 
           <p class="mt-3 text-md text-left">
-            <strong>Answer: </strong> If you want to improve your react
-            application performance. follow this steps, 1. Avoid Anonymous
-            Functions. Since anonymous functions aren't assigned an identifier
-            (via const/let/var), they aren't persistent whenever this functional
-            component inevitably gets rendered again. you also Avoid Frequent
-            Mounting/Unmounting and Avoid Object Literals for solve this
-            performance you will use{" "}
-            <strong>React.memo, React.lazy and React.Suspense</strong>
+            <strong>Answer: </strong> Explain why we use in react useState,
+            useState is a Hook (function) that allows you to have state
+            variables in functional components. You pass the initial state to
+            this function and it returns a variable with the current state value
+            (not necessarily the initial state) and another function to update
+            this value. But spread operator dont give that,Is useState called on
+            every render and React useState hook is asynchronous! that was main
+            purpose of use useState hook.
           </p>
 
           <div class="mt-4 sm:flex sm:items-center sm:gap-2">
@@ -68,9 +70,9 @@ const Blog1 = () => {
         </div>
       </div>
       {/* button badge */}
-      <Badge>React Performance</Badge>
+      <Badge>useState</Badge>
     </article>
   );
 };
 
-export default Blog1;
+export default Blog4;

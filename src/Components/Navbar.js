@@ -7,6 +7,7 @@ import { CgMenuGridO } from "react-icons/cg";
 import { FcManager } from "react-icons/fc";
 import auth from "../firebase.init";
 import Loading from "./Loading/Loading";
+import logo from "../Assets/images/logo.png";
 
 const Navbar = () => {
   const [user, loading] = useAuthState(auth);
@@ -58,7 +59,7 @@ const Navbar = () => {
           </ul>
         </div>
         <Link to="/" className="btn btn-ghost normal-case text-xl">
-          daisyUI
+          <img src={logo} alt="This is logo png" />
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">

@@ -1,7 +1,7 @@
 import React from "react";
 import Badge from "./Badge";
 
-const Blog1 = () => {
+const Blog6 = () => {
   return (
     <article class="p-6 bg-neutral mt-8 sm:p-8 shadow-md shadow-blue-900 lg:w-4/6 md:w-5/6 w-11/12 mx-auto rounded-xl ">
       <div class="flex items-start">
@@ -20,24 +20,24 @@ const Blog1 = () => {
 
         <div class="sm:ml-8">
           <strong class="rounded border w-fit mr-auto block border-indigo-500 bg-indigo-500 px-3 py-1.5 text-[10px] font-medium text-white">
-            Question No: 1
+            Question No: 6
           </strong>
 
           <h2 class="mt-4 text-lg text-left font-medium sm:text-xl">
-            $ How will you improve the performance of a React Application?
+            $ What is a unit test? Why should write unit tests?
           </h2>
-
           <p class="mt-3 text-md text-left">
-            <strong>Answer: </strong> If you want to improve your react
-            application performance. follow this steps, 1. Avoid Anonymous
-            Functions. Since anonymous functions aren't assigned an identifier
-            (via const/let/var), they aren't persistent whenever this functional
-            component inevitably gets rendered again. you also Avoid Frequent
-            Mounting/Unmounting and Avoid Object Literals for solve this
-            performance you will use{" "}
-            <strong>React.memo, React.lazy and React.Suspense</strong>
+            <strong>Answer: </strong> A unit test is a way of testing a unit -
+            the smallest piece of code that can be logically isolated in a
+            system. In most programming languages, that is a function, a
+            subroutine, a method or property. The isolated part of the
+            definition is important. In his book "Working Effectively with
+            Legacy Code", author Michael Feathers states that such tests are not
+            unit tests when they rely on external systems: “If it talks to the
+            database, it talks across the network, it touches the file system,
+            it requires system configuration, or it can't be run at the same
+            time as any other test."
           </p>
-
           <div class="mt-4 sm:flex sm:items-center sm:gap-2">
             <div class="flex items-center text-gray-400">
               <svg
@@ -54,7 +54,7 @@ const Blog1 = () => {
                   d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                 ></path>
               </svg>
-              <p class="ml-1 text-xs font-medium">12/06/2022</p>
+              <p class="ml-1 text-xs font-medium">07/03/2020</p>
             </div>
 
             <span class="hidden sm:block" aria-hidden="true">
@@ -62,15 +62,15 @@ const Blog1 = () => {
             </span>
 
             <p class="mt-2 text-xs font-medium text-gray-400 sm:mt-0">
-              Writer: Ashikul islam ifty
+              Writer: Mohammad naim
             </p>
           </div>
         </div>
       </div>
       {/* button badge */}
-      <Badge>React Performance</Badge>
+      <Badge>filter</Badge>
     </article>
   );
 };
 
-export default Blog1;
+export default Blog6;
