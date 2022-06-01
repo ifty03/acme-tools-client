@@ -9,7 +9,7 @@ import Loading from "../../Components/Loading/Loading";
 import auth from "../../firebase.init";
 
 const MakeAdmin = () => {
-  const [user] = useAuthState(auth);
+  const [currentUser] = useAuthState(auth);
   const [adminLoading, setAdminLoading] = useState(false);
   const [adminId, setAdminId] = useState(0);
   const {
@@ -18,7 +18,7 @@ const MakeAdmin = () => {
     refetch,
   } = useQuery("users", () =>
     fetch(
-      `https://sheltered-journey-62217.herokuapp.com/users?email=${user.email}`,
+      `https://sheltered-journey-62217.herokuapp.com/users?email=${currentUser.email}`,
       {
         method: "GET",
         headers: {
@@ -39,7 +39,7 @@ const MakeAdmin = () => {
   const handelAdmin = (email, name) => {
     setAdminLoading(true);
     fetch(
-      `https://sheltered-journey-62217.herokuapp.com/makeAdmin/${user?.email}`,
+      `https://sheltered-journey-62217.herokuapp.com/makeAdmin/${currentUser?.email}`,
       {
         method: "PUT",
         headers: {
@@ -67,7 +67,7 @@ const MakeAdmin = () => {
   const cancelAdmin = (email, name) => {
     setAdminLoading(true);
     fetch(
-      `https://sheltered-journey-62217.herokuapp.com/cancelAdmin/${user?.email}`,
+      `https://sheltered-journey-62217.herokuapp.com/cancelAdmin/${currentUser?.email}`,
       {
         method: "PUT",
         headers: {
@@ -144,19 +144,25 @@ const MakeAdmin = () => {
               </th>
               <th>
                 {user?.role === "admin" ? (
-                  <button
-                    onClick={() => {
-                      setAdminId(user?._id);
-                      cancelAdmin(user?.email, user?.name);
-                    }}
-                    className={
-                      adminLoading && user?._id == adminId
-                        ? "btn btn-error btn-xs loading"
-                        : "btn btn-error btn-xs"
-                    }
-                  >
-                    Cancel Admin
-                  </button>
+                  <>
+                    {user.email === currentUser?.email ? (
+                      <button className="btn btn-success btn-xs">You</button>
+                    ) : (
+                      <button
+                        onClick={() => {
+                          setAdminId(user?._id);
+                          cancelAdmin(user?.email, user?.name);
+                        }}
+                        className={
+                          adminLoading && user?._id == adminId
+                            ? "btn btn-error btn-xs loading"
+                            : "btn btn-error btn-xs"
+                        }
+                      >
+                        Cancel Admin
+                      </button>
+                    )}
+                  </>
                 ) : (
                   <button
                     onClick={() => {
