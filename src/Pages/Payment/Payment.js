@@ -122,17 +122,17 @@ const Payment = () => {
               </div>
 
               <div className="mt-12">
-                <div className="lg:flex bg-white dark:bg-gray-800 rounded-lg shadow">
+                <div className="lg:flex shadow-xl bg-gray-800 rounded-lg ">
                   <div className="flex-none w-24 md:w-48  relative">
                     <img
                       src={tool?.img}
                       alt="shopping img"
-                      className="absolute rounded-lg inset-0 w-full h-full object-cover"
+                      className="absolute rounded-lg inset-0 w-full h-full shadow-lg object-cover"
                     />
                   </div>
                   <form className="flex-auto p-6 text-left">
                     <div className="flex flex-wrap">
-                      <h1 className="flex-auto text-xl font-semibold mb-4 dark:text-gray-50">
+                      <h1 className="flex-auto text-xl font-semibold mb-4 text-gray-50">
                         {tool?.name}
                       </h1>
                       <div className="text-xl text-warning font-semibold">
