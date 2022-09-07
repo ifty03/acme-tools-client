@@ -3,9 +3,9 @@ import menufecturer from "../../src/Assets/images/menufectarar.png";
 
 const Menufecturer = () => {
   return (
-    <div className="bg-white dark:bg-gray-800 w-11/12 mx-auto mt-5 rounded-lg">
+    <div className="bg-white bg-gray-800 w-11/12 mx-auto mt-5 rounded-lg">
       <div className="relative px-4 py-6 overflow-hidden sm:px-6 sm:py-8 lg:p-12 xl:p-16">
-        <h2 className="text-2xl text-left font-semibold font-display text-black dark:text-white sm:text-3xl">
+        <h2 className="text-2xl text-left font-semibold font-display text-black text-white sm:text-3xl">
           Contact our manufacturer Team
         </h2>
         <p className="mt-2 max-w-xl text-left text-base text-gray-400">
