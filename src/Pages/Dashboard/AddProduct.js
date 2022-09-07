@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import add from "../../Assets/images/addNew.png";
+import add from "../../Assets/images/addNew.gif";
 import { FcAddImage } from "react-icons/fc";
 import { signOut } from "firebase/auth";
 import auth from "../../firebase.init";
