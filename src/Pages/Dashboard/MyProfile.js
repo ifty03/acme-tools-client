@@ -12,14 +12,11 @@ import auth from "../../firebase.init";
 const MyProfile = () => {
   const [user] = useAuthState(auth);
   const { data, isLoading } = useQuery("user", () =>
-    fetch(
-      `https://sheltered-journey-62217.herokuapp.com/user?email=${user?.email}`,
-      {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("access-token")}`,
-        },
-      }
-    ).then((res) => {
+    fetch(`https://acme-tools-server-production.up.railway.app/user?email=${user?.email}`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("access-token")}`,
+      },
+    }).then((res) => {
       if (res.status === 401 || res.status === 403) {
         signOut(auth);
         Navigate("/");

@@ -71,7 +71,7 @@ const SignUp = () => {
           /* user data update in database */
           const user = { name, img: data.url };
 
-          fetch(`https://sheltered-journey-62217.herokuapp.com/user/${email}`, {
+          fetch(`https://acme-tools-server-production.up.railway.app/user/${email}`, {
             method: "PUT",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(user),

@@ -22,7 +22,7 @@ const Order = ({ order, refetch }) => {
       confirmButtonText: "Yes, Cancel it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://sheltered-journey-62217.herokuapp.com/order/${id}`, {
+        fetch(`https://acme-tools-server-production.up.railway.app/order/${id}`, {
           method: "DELETE",
           headers: {
             authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -51,7 +51,7 @@ const Order = ({ order, refetch }) => {
   const handelShipped = (id, status) => {
     if (status === "pending") {
       setProcessing(true);
-      fetch(`https://sheltered-journey-62217.herokuapp.com/payment/${id}`, {
+      fetch(`https://acme-tools-server-production.up.railway.app/payment/${id}`, {
         method: "PUT",
         headers: {
           authorization: `Bearer ${localStorage.getItem("access-token")}`,

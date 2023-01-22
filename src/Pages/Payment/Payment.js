@@ -15,7 +15,7 @@ const Payment = () => {
   const { toolId } = useParams();
 
   const { data: tool, isLoading } = useQuery(["tool", toolId], () =>
-    fetch(`https://sheltered-journey-62217.herokuapp.com/tool/${toolId}`, {
+    fetch(`https://acme-tools-server-production.up.railway.app/tool/${toolId}`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -64,7 +64,7 @@ const Payment = () => {
     };
     if (quantity <= tool?.maximum && quantity >= tool?.minimum) {
       setOrderLoading(true);
-      fetch("https://sheltered-journey-62217.herokuapp.com/order", {
+      fetch("https://acme-tools-server-production.up.railway.app/order", {
         method: "POST",
         headers: {
           authorization: `Bearer ${localStorage.getItem("access-token")}`,

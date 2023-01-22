@@ -22,6 +22,7 @@ import Pay from "./Pages/Dashboard/Pay";
 import ManageAllOrders from "./Pages/Dashboard/ManageAllOrders";
 import RequirAdmin from "./Components/RequireAdmin";
 import ErrorPage from "./Components/ErrorPage";
+import { MessengerChat } from "react-messenger-chat-plugin";
 
 function App() {
   return (
@@ -92,6 +93,7 @@ function App() {
         <Route path="*" element={<ErrorPage />}></Route>
       </Routes>
       <Toaster />
+      <MessengerChat pageId="100077806736790" />
       <Footer />
     </div>
   );

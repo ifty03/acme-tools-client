@@ -9,9 +9,7 @@ const Tools = () => {
     isLoading,
     refetch,
   } = useQuery("tools", () =>
-    fetch("https://sheltered-journey-62217.herokuapp.com/tools").then((res) =>
-      res.json()
-    )
+    fetch("https://acme-tools-server-production.up.railway.app/tools").then((res) => res.json())
   );
 
   if (isLoading) {

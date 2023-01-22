@@ -13,7 +13,7 @@ const ManageAllOrders = () => {
     isLoading,
     refetch,
   } = useQuery("allOrders", () =>
-    fetch("https://sheltered-journey-62217.herokuapp.com/allOrders", {
+    fetch("https://acme-tools-server-production.up.railway.app/allOrders", {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("access-token")}`,

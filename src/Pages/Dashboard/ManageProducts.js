@@ -13,7 +13,7 @@ const ManageProducts = () => {
     isLoading,
     refetch,
   } = useQuery("manageTools", () =>
-    fetch("https://sheltered-journey-62217.herokuapp.com/allTools", {
+    fetch("https://acme-tools-server-production.up.railway.app/allTools", {
       headers: {
         authorization: `Bearer ${localStorage.getItem("access-token")}`,
         "content-type": "application/json",
@@ -39,7 +39,7 @@ const ManageProducts = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://sheltered-journey-62217.herokuapp.com/tool/${id}`, {
+        fetch(`https://acme-tools-server-production.up.railway.app/tool/${id}`, {
           method: "DELETE",
           headers: {
             authorization: `Bearer ${localStorage.getItem("access-token")}`,

@@ -46,7 +46,7 @@ const AddProduct = () => {
               available,
               img: result?.data?.url,
             };
-            fetch("https://sheltered-journey-62217.herokuapp.com/product", {
+            fetch("https://acme-tools-server-production.up.railway.app/product", {
               method: "POST",
               headers: {
                 authorization: `Bearer ${localStorage.getItem("access-token")}`,

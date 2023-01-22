@@ -21,15 +21,12 @@ const MyOrders = () => {
     isLoading,
     refetch,
   } = useQuery("orders", () =>
-    fetch(
-      `https://sheltered-journey-62217.herokuapp.com/orders?email=${user?.email}`,
-      {
-        method: "GET",
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("access-token")}`,
-        },
-      }
-    ).then((res) => {
+    fetch(`https://acme-tools-server-production.up.railway.app/orders?email=${user?.email}`, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("access-token")}`,
+      },
+    }).then((res) => {
       if (res.status === 401 || res.status === 403) {
         signOut(auth);
         toast.error("Please reLogin");
@@ -52,7 +49,7 @@ const MyOrders = () => {
       confirmButtonText: "Yes, Cancel it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://sheltered-journey-62217.herokuapp.com/order/${id}`, {
+        fetch(`https://acme-tools-server-production.up.railway.app/order/${id}`, {
           method: "DELETE",
           headers: {
             authorization: `Bearer ${localStorage.getItem("access-token")}`,

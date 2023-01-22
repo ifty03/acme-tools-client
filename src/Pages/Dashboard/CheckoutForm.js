@@ -24,17 +24,14 @@ const CheckoutForm = ({ order }) => {
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     if (totalPrice) {
-      fetch(
-        "https://sheltered-journey-62217.herokuapp.com/create-payment-intent",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${localStorage.getItem("access-token")}`,
-          },
-          body: JSON.stringify({ totalPrice }),
-        }
-      )
+      fetch("https://acme-tools-server-production.up.railway.app/create-payment-intent", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        },
+        body: JSON.stringify({ totalPrice }),
+      })
         .then((res) => {
           if (res.status === 401 || res.status === 403) {
             signOut(auth);
@@ -115,7 +112,7 @@ const CheckoutForm = ({ order }) => {
       toast.success("Hurray your payment is successfully done");
 
       /* store payment data in database */
-      fetch(`https://sheltered-journey-62217.herokuapp.com/payment/${_id}`, {
+      fetch(`https://acme-tools-server-production.up.railway.app/payment/${_id}`, {
         method: "PUT",
         headers: {
           authorization: `Bearer ${localStorage.getItem("access-token")}`,
