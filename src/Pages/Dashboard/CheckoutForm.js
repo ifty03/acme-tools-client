@@ -24,7 +24,7 @@ const CheckoutForm = ({ order }) => {
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     if (totalPrice) {
-      fetch("https://acme-tools-server-production.up.railway.app/create-payment-intent", {
+      fetch("https://acme-tools-server.vercel.app/create-payment-intent", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -112,7 +112,7 @@ const CheckoutForm = ({ order }) => {
       toast.success("Hurray your payment is successfully done");
 
       /* store payment data in database */
-      fetch(`https://acme-tools-server-production.up.railway.app/payment/${_id}`, {
+      fetch(`https://acme-tools-server.vercel.app/payment/${_id}`, {
         method: "PUT",
         headers: {
           authorization: `Bearer ${localStorage.getItem("access-token")}`,

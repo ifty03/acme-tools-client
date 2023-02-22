@@ -9,7 +9,7 @@ const useIsAdmin = (user) => {
 
   useEffect(() => {
     if (email) {
-      fetch(`https://acme-tools-server-production.up.railway.app/admin/${email}`, {
+      fetch(`https://acme-tools-server.vercel.app/admin/${email}`, {
         method: "GET",
         headers: {
           authorization: `Bearer ${localStorage.getItem("access-token")}`,

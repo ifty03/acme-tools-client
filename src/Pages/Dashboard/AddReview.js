@@ -22,7 +22,7 @@ const AddReview = () => {
     const img = user?.photoURL;
     const review = { rate, name, description, img, email: user?.email };
     if (description.length > 50 && description.length < 250) {
-      fetch("https://acme-tools-server-production.up.railway.app/reviews", {
+      fetch("https://acme-tools-server.vercel.app/reviews", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(review),

@@ -15,7 +15,7 @@ const Payment = () => {
   const { toolId } = useParams();
 
   const { data: tool, isLoading } = useQuery(["tool", toolId], () =>
-    fetch(`https://acme-tools-server-production.up.railway.app/tool/${toolId}`, {
+    fetch(`https://acme-tools-server.vercel.app/tool/${toolId}`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -64,7 +64,7 @@ const Payment = () => {
     };
     if (quantity <= tool?.maximum && quantity >= tool?.minimum) {
       setOrderLoading(true);
-      fetch("https://acme-tools-server-production.up.railway.app/order", {
+      fetch("https://acme-tools-server.vercel.app/order", {
         method: "POST",
         headers: {
           authorization: `Bearer ${localStorage.getItem("access-token")}`,

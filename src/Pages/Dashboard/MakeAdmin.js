@@ -17,12 +17,15 @@ const MakeAdmin = () => {
     isLoading,
     refetch,
   } = useQuery("users", () =>
-    fetch(`https://acme-tools-server-production.up.railway.app/users?email=${currentUser.email}`, {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("access-token")}`,
-      },
-    }).then((res) => {
+    fetch(
+      `https://acme-tools-server.vercel.app/users?email=${currentUser.email}`,
+      {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        },
+      }
+    ).then((res) => {
       if (res.status === 401 || res.status === 403) {
         signOut(auth);
         Navigate("/");
@@ -35,14 +38,17 @@ const MakeAdmin = () => {
   /* make a admin */
   const handelAdmin = (email, name) => {
     setAdminLoading(true);
-    fetch(`https://acme-tools-server-production.up.railway.app/makeAdmin/${currentUser?.email}`, {
-      method: "PUT",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("access-token")}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ email }),
-    })
+    fetch(
+      `https://acme-tools-server.vercel.app/makeAdmin/${currentUser?.email}`,
+      {
+        method: "PUT",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      }
+    )
       .then((res) => {
         if (res.status === 401 || res.status === 403) {
           signOut(auth);
@@ -60,14 +66,17 @@ const MakeAdmin = () => {
   /* remove a admin */
   const cancelAdmin = (email, name) => {
     setAdminLoading(true);
-    fetch(`https://acme-tools-server-production.up.railway.app/cancelAdmin/${currentUser?.email}`, {
-      method: "PUT",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("access-token")}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ email }),
-    })
+    fetch(
+      `https://acme-tools-server.vercel.app/cancelAdmin/${currentUser?.email}`,
+      {
+        method: "PUT",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      }
+    )
       .then((res) => {
         if (res.status === 401 || res.status === 403) {
           signOut(auth);

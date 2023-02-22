@@ -9,7 +9,9 @@ const Tools = () => {
     isLoading,
     refetch,
   } = useQuery("tools", () =>
-    fetch("https://acme-tools-server-production.up.railway.app/tools").then((res) => res.json())
+    fetch("https://acme-tools-server.vercel.app/tools").then((res) =>
+      res.json()
+    )
   );
 
   if (isLoading) {

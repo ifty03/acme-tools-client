@@ -21,7 +21,7 @@ const MyOrders = () => {
     isLoading,
     refetch,
   } = useQuery("orders", () =>
-    fetch(`https://acme-tools-server-production.up.railway.app/orders?email=${user?.email}`, {
+    fetch(`https://acme-tools-server.vercel.app/orders?email=${user?.email}`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -49,7 +49,7 @@ const MyOrders = () => {
       confirmButtonText: "Yes, Cancel it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://acme-tools-server-production.up.railway.app/order/${id}`, {
+        fetch(`https://acme-tools-server.vercel.app/order/${id}`, {
           method: "DELETE",
           headers: {
             authorization: `Bearer ${localStorage.getItem("access-token")}`,

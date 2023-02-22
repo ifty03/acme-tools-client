@@ -18,7 +18,7 @@ const Pay = () => {
   );
 
   const { data: order, isLoading } = useQuery(["payOrder", payId], () =>
-    fetch(`https://acme-tools-server-production.up.railway.app/order/${payId}`, {
+    fetch(`https://acme-tools-server.vercel.app/order/${payId}`, {
       headers: {
         authorization: `Berar ${localStorage.getItem("access-token")}`,
       },

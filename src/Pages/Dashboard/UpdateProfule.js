@@ -25,7 +25,7 @@ const UpdateProfule = () => {
 
   const onSubmit = (data) => {
     setUpdating(true);
-    fetch(`https://acme-tools-server-production.up.railway.app/user/${user?.email}`, {
+    fetch(`https://acme-tools-server.vercel.app/user/${user?.email}`, {
       method: "PUT",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(data),

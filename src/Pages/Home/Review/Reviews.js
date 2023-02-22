@@ -6,7 +6,9 @@ import Loading from "../../../Components/Loading/Loading";
 
 const Reviews = () => {
   const { data, isLoading } = useQuery("review", () =>
-    fetch("https://acme-tools-server-production.up.railway.app/reviews").then((res) => res.json())
+    fetch("https://acme-tools-server.vercel.app/reviews").then((res) =>
+      res.json()
+    )
   );
   if (isLoading) {
     return <Loading />;

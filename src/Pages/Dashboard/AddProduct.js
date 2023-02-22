@@ -46,7 +46,7 @@ const AddProduct = () => {
               available,
               img: result?.data?.url,
             };
-            fetch("https://acme-tools-server-production.up.railway.app/product", {
+            fetch("https://acme-tools-server.vercel.app/product", {
               method: "POST",
               headers: {
                 authorization: `Bearer ${localStorage.getItem("access-token")}`,

@@ -13,7 +13,7 @@ const ManageProducts = () => {
     isLoading,
     refetch,
   } = useQuery("manageTools", () =>
-    fetch("https://acme-tools-server-production.up.railway.app/allTools", {
+    fetch("https://acme-tools-server.vercel.app/allTools", {
       headers: {
         authorization: `Bearer ${localStorage.getItem("access-token")}`,
         "content-type": "application/json",
@@ -39,7 +39,7 @@ const ManageProducts = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://acme-tools-server-production.up.railway.app/tool/${id}`, {
+        fetch(`https://acme-tools-server.vercel.app/tool/${id}`, {
           method: "DELETE",
           headers: {
             authorization: `Bearer ${localStorage.getItem("access-token")}`,

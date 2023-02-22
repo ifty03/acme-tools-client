@@ -4,7 +4,7 @@ const useToken = (user) => {
   const email = user?.user?.email;
   useEffect(() => {
     if (email) {
-      fetch(`https://acme-tools-server-production.up.railway.app/user/${email}`, {
+      fetch(`https://acme-tools-server.vercel.app/user/${email}`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ email }),
